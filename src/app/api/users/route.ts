@@ -1,13 +1,13 @@
 import dbConnect from "@/app/lib/dbConnect";
-import Product from "@/app/models/Product";
+import User from "@/app/models/User";
 import { NextResponse } from "next/server";
 
 export async function GET(){
     await dbConnect();
     try{
-        const products = await Product.find({});
+        const users = await User.find({});
 
-        return NextResponse.json({products})
+        return NextResponse.json({users})
     } catch (err: any){
         return NextResponse.json({err: err.message})
     }
