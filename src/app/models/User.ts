@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface User extends Document {
+    _id: string;
     username: string;
     email: string;
     password: string;
@@ -9,7 +10,7 @@ export interface User extends Document {
 }
 
 const userSchema:Schema = new mongoose.Schema({
-    userName: {
+    username: {
         type: String,
         required: true,
     },

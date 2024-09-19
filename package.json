@@ -9,29 +9,34 @@
     "lint": "next lint --fix --dir src"
   },
   "dependencies": {
+    "@emotion/cache": "^11.13.1",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.0",
+    "@mui/material-nextjs": "^6.1.0",
     "language-helper": "link:",
-    "next": "14.2.9",
-    "react": "^18",
-    "react-dom": "^18"
+    "next": "14.2.11",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
-    "autoprefixer": "^10.0.1",
+    "@types/node": "^22.5.5",
+    "@types/react": "^18.3.7",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.6.0",
+    "@typescript-eslint/parser": "^8.6.0",
+    "autoprefixer": "^10.4.20",
     "dotenv": "^16.4.5",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.9",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.11",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
-    "mongodb": "^6.8.1",
-    "mongoose": "^8.6.1",
-    "postcss": "^8",
+    "eslint-plugin-import": "^2.30.0",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.6.2",
+    "postcss": "^8.4.47",
     "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.5.11",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "prettier-plugin-tailwindcss": "^0.6.6",
+    "tailwindcss": "^3.4.12",
+    "typescript": "^5.6.2"
   }
 }

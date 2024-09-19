@@ -1,3 +1,5 @@
+import { User } from "../models/User";
+
 export default async function Users () {
     console.log('Loading');
     const fetchUsers = async () => {
@@ -17,11 +19,11 @@ export default async function Users () {
     return (
         <div>
             <h1>This users are mine</h1>
-            {users.map((user: any) => (
+            {users.map((user: User) => (
                 <div key={user._id}>
-                    <h2>{user.name}</h2>
-                    <p>{user.description}</p>
-                    <p>{user.price}</p>
+                    <h2>{user.username}</h2>
+                    <p>{user.email}</p>
+                    <a href={`/users/${user._id}`}><button>Go to users details</button></a>
                 </div>
             ))}
         </div>
