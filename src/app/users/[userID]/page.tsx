@@ -1,30 +1,17 @@
-import { User } from "@/app/models/User";
+import { getUser } from "@/app/requests/getUser";
+import { getUserWords } from "@/app/requests/getUserWords";
 
-export default async function UserDetails ({params}:{params: {userID: string}}) {
-    console.log('Loading');
-    console.log(params.userID);
-    const fetchUsers = async () => {
-        const res = await fetch(`http://localhost:3000/api/users/${params.userID}`);
-        const jsonRes = await res.json();
-        const user: User = await jsonRes.user;
+export default async function UserDetails({ params }: { params: { userID: string } }) {
+	const user = await getUser(params.userID);
+	const words = await getUserWords(params.userID);
 
-        console.log(user);
-
-        return user;
-    }
-
-    const user = await fetchUsers();
-
-    console.log(user);
-
-    return (
-        <div>
-            <h1>This users are mine</h1>
-                <div>
-                    <p>Email: {user.email}</p>
-                    <p>Last Login: {new Date(user.lastLogin).toLocaleString()}</p>
-                    <p>Streak: {user.streak}</p>
-                </div>
-        </div>
-    )
+	return (
+		<div className="min-h-screen items-center justify-items-center gap-16 p-8 pb-20 sm:p-20">
+			<h1>Hello {user.username}</h1>
+			<div>
+				<p>Last Login: {new Date(user.lastLogin).toLocaleString()}</p>
+				<p>Streak: {user.streak}</p>
+			</div>
+		</div>
+	);
 }
