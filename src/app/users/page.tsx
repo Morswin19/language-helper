@@ -1,31 +1,13 @@
-import { User } from "../models/User";
+import UsersCards from "../components/userCards/usersCards";
+import { getUsers } from "../requests/getUsers";
 
-export default async function Users () {
-    console.log('Loading');
-    const fetchUsers = async () => {
-        const res = await fetch("http://localhost:3000/api/users");
-        const jsonRes = await res.json();
-        const users = jsonRes.users;
+export default async function Users() {
+	const users = await getUsers();
 
-        console.log(users);
-
-        return users;
-    }
-
-    const users = await fetchUsers();
-
-    console.log(users);
-
-    return (
-        <div>
-            <h1>This users are mine</h1>
-            {users.map((user: User) => (
-                <div key={user._id}>
-                    <h2>{user.username}</h2>
-                    <p>{user.email}</p>
-                    <a href={`/users/${user._id}`}><button>Go to users details</button></a>
-                </div>
-            ))}
-        </div>
-    )
+	return (
+		<div className="min-h-screen items-center justify-items-center gap-16 p-8 pb-20 sm:p-20">
+			<h1>Who you are?</h1>
+			<UsersCards users={users} />
+		</div>
+	);
 }
