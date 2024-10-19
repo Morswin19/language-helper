@@ -1,6 +1,5 @@
 import * as React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Paper from "@mui/material/Paper";
 import { getUserWords } from "@/app/requests/getUserWords";
 import { WordRow } from "@/app/types/addWordFormData";
 import { Box } from "@mui/material";

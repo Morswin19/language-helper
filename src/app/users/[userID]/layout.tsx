@@ -1,6 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { Box } from "@mui/material";
+import { Header } from "@/app/components/header/header";
 
 export default function UserLayout({
 	children,
@@ -11,6 +12,7 @@ export default function UserLayout({
 }) {
 	return (
 		<>
+			<Header userID={params.userID} />
 			<Box className="container mx-auto my-4 flex justify-center gap-4 border-8 border-cyan-100 px-4">
 				<Link className="uppercase" href={`/users/${params.userID}/form`}>
 					Form
