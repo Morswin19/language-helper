@@ -16,7 +16,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { postWord } from "@/app/requests/postWord";
-import { FormData } from "@/app/types/addWordFormData";
+import { WordFormData } from "@/app/types/addWordFormData";
 import { wordFormSchema } from "./formSchema";
 
 export default function UserForm({ params }: { params: { userID: string } }) {
@@ -38,10 +38,10 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 		},
 	});
 
-	const onSubmit = async (data: FormData) => {
+	const onSubmit = async (data: WordFormData) => {
 		const result = await postWord(data);
 		if (result.success) {
-			console.log("Word posted successfully:", result.data);
+			console.log("Word posted successfully:");
 			reset({
 				sourceWord: "",
 				targetWord: "",

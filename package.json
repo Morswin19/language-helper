@@ -17,6 +17,7 @@
     "@mui/joy": "5.0.0-beta.48",
     "@mui/material": "^6.1.0",
     "@mui/material-nextjs": "^6.1.0",
+    "@mui/x-data-grid": "^7.21.0",
     "language-helper": "link:",
     "next": "14.2.11",
     "react": "^18.3.1",

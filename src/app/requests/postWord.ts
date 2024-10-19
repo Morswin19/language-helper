@@ -1,7 +1,7 @@
-import { FormData } from "../types/addWordFormData";
+import { WordFormData } from "../types/addWordFormData";
 
 export const postWord = async (
-	wordData: FormData,
+	wordData: WordFormData,
 ): Promise<{ success: boolean; data?: any; error?: string }> => {
 	try {
 		const response = await fetch("http://localhost:3000/api/words", {
