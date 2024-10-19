@@ -25,10 +25,9 @@ const partOfSpeechValues = [
 	"adverb",
 	"preposition",
 	"conjunction",
-	"interjection",
 ] as const;
 
-const languages = ["PL", "EN", "ES", "CAT"] as const;
+export const languages = ["PL", "EN", "ES", "CAT"] as const;
 
 const wordSchema: Schema = new mongoose.Schema(
 	{
