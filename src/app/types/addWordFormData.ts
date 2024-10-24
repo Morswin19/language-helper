@@ -23,3 +23,18 @@ export type WordRow = {
 	nextRepeatDate: Date;
 	notes: string;
 };
+
+export type UpdatedWord = {
+	sourceWord?: string;
+	targetWord?: string;
+	sourceLanguage?: string;
+	targetLanguage?: string;
+	partOfSpeech?: string;
+	numberOfRepeats?: number;
+	numberOfBadRepeats?: number;
+	numberOfMediumRepeats?: number;
+	numberOfGoodRepeats?: number;
+	lastRepeatDate?: Date;
+	nextRepeatDate?: Date;
+	notes?: string;
+};

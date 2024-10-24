@@ -9,7 +9,6 @@ import { getUserWords } from "@/app/requests/getUserWords";
 
 export const Header = async ({ userID }: { userID: string }) => {
 	const words = await getUserWords(userID);
-	console.log(words);
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
