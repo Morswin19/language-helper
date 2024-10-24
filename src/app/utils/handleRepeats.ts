@@ -1,4 +1,6 @@
 import { patchRepeatedWord } from "../requests/patchRepeatedWord";
+import { UpdatedWord } from "../types/addWordFormData";
+import { getNextRepeatDate } from "./getNextRepeatDate";
 
 export const handleRepeatDataInDatabase = (
 	repeatStatus: string,
@@ -6,25 +8,22 @@ export const handleRepeatDataInDatabase = (
 	numberOfStatusRepeats: number,
 	wordID: string,
 ) => {
-	let updatedWord = {};
+	let updatedWord: UpdatedWord = {};
 	if (repeatStatus === "BAD") {
 		updatedWord = {
-			numberOfRepeats: numberOfRepeats + 1,
 			numberOfBadRepeats: numberOfStatusRepeats + 1,
-			lastRepeatDate: new Date(),
 		};
 	} else if (repeatStatus === "MEDIUM") {
 		updatedWord = {
-			numberOfRepeats: numberOfRepeats + 1,
 			numberOfMediumRepeats: numberOfStatusRepeats + 1,
-			lastRepeatDate: new Date(),
 		};
 	} else if (repeatStatus === "GOOD") {
 		updatedWord = {
-			numberOfRepeats: numberOfRepeats + 1,
 			numberOfGoodRepeats: numberOfStatusRepeats + 1,
-			lastRepeatDate: new Date(),
 		};
 	}
+	updatedWord.numberOfRepeats = numberOfRepeats + 1;
+	updatedWord.lastRepeatDate = new Date();
+
 	patchRepeatedWord(wordID, updatedWord);
 };

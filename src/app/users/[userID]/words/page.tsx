@@ -79,7 +79,6 @@ export default async function UserWords({ params }: { params: { userID: string }
 				rows={rows}
 				columns={columns}
 				initialState={{ pagination: { paginationModel } }}
-				// pageSizeOptions={[5, 10]}
 				checkboxSelection
 				sx={{ border: 0 }}
 			/>
