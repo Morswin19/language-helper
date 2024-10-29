@@ -93,6 +93,10 @@ export const Repeats = ({ words }: { words: Word[] }) => {
 					<Typography>
 						NextRepeatDate: {String(new Date(wordsToRepeat[0].nextRepeatDate))}
 					</Typography>
+					<Typography>
+						Percent of good repeats:{" "}
+						{(wordsToRepeat[0].numberOfGoodRepeats * 100) / wordsToRepeat[0].numberOfRepeats}
+					</Typography>
 				</>
 			) : (
 				<Typography>Nothing to repeat</Typography>
