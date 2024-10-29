@@ -34,6 +34,7 @@ export type UpdatedWord = {
 	numberOfBadRepeats?: number;
 	numberOfMediumRepeats?: number;
 	numberOfGoodRepeats?: number;
+	goodRepeatsInRow?: number;
 	lastRepeatDate?: Date;
 	nextRepeatDate?: Date;
 	notes?: string;
