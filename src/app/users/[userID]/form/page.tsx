@@ -10,6 +10,7 @@ import {
 	TextField,
 	TextareaAutosize,
 	Button,
+	Typography,
 } from "@mui/material";
 
 import { useForm, Controller } from "react-hook-form";
@@ -18,6 +19,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { postWord } from "@/app/requests/postWord";
 import { WordFormData } from "@/app/types/addWordFormData";
 import { wordFormSchema } from "./formSchema";
+import { useWordStore } from "@/app/store/store";
 
 export default function UserForm({ params }: { params: { userID: string } }) {
 	const {
@@ -38,14 +40,21 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 		},
 	});
 
+	const { addWord } = useWordStore();
+
 	const onSubmit = async (data: WordFormData) => {
 		const result = await postWord(data);
 		if (result.success) {
 			console.log("Word posted successfully:");
+			const newWord = result.data;
+			newWord.word.nextRepeatDate = new Date();
+			newWord.word.lastRepeatDate = new Date();
+			addWord(newWord.word);
 			reset({
 				sourceWord: "",
 				targetWord: "",
 				notes: "",
+				userId: `${params.userID}`,
 			});
 		} else {
 			console.error("Failed to post word:", result.error);
@@ -54,21 +63,9 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<Box className="flex flex-wrap justify-items-center gap-2 p-8 pb-20 sm:gap-16 sm:p-20">
+			<Box className="flex flex-col gap-4">
 				<Box>
-					<Controller
-						name="partOfSpeech"
-						control={control}
-						render={({ field }) => (
-							<Select {...field} fullWidth>
-								<MenuItem value="noun">Noun</MenuItem>
-								<MenuItem value="pronoun">Pronoun</MenuItem>
-								<MenuItem value="verb">Verb</MenuItem>
-								<MenuItem value="adjective">Adjective</MenuItem>
-								<MenuItem value="sentence">Sentence</MenuItem>
-							</Select>
-						)}
-					/>
+					<Typography>word language</Typography>
 					<Controller
 						name="sourceLanguage"
 						control={control}
@@ -81,23 +78,25 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 							</RadioGroup>
 						)}
 					/>
-					<Controller
-						name="sourceWord"
-						control={control}
-						render={({ field }) => (
-							<TextField
-								{...field}
-								fullWidth
-								label="Dodaj słowo"
-								variant="outlined"
-								margin="normal"
-								error={!!errors.sourceWord}
-								helperText={errors.sourceWord?.message}
-							/>
-						)}
-					/>
 				</Box>
+				<Controller
+					name="sourceWord"
+					control={control}
+					render={({ field }) => (
+						<TextField
+							className="m-0"
+							{...field}
+							fullWidth
+							label="Add word"
+							variant="outlined"
+							margin="none"
+							error={!!errors.sourceWord}
+							helperText={errors.sourceWord?.message}
+						/>
+					)}
+				/>
 				<Box>
+					<Typography>translation language</Typography>
 					<Controller
 						name="targetLanguage"
 						control={control}
@@ -110,40 +109,54 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 							</RadioGroup>
 						)}
 					/>
-					<Controller
-						name="targetWord"
-						control={control}
-						render={({ field }) => (
-							<TextField
-								{...field}
-								fullWidth
-								label="Dodaj tłumaczenie"
-								variant="outlined"
-								margin="normal"
-								error={!!errors.targetWord}
-								helperText={errors.targetWord?.message}
-							/>
-						)}
-					/>
 				</Box>
+				<Controller
+					name="targetWord"
+					control={control}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							fullWidth
+							label="Add translation"
+							variant="outlined"
+							margin="none"
+							error={!!errors.targetWord}
+							helperText={errors.targetWord?.message}
+						/>
+					)}
+				/>
 				<Box>
+					<Typography>Part of speech</Typography>
 					<Controller
-						name="notes"
+						name="partOfSpeech"
 						control={control}
 						render={({ field }) => (
-							<TextareaAutosize
-								{...field}
-								aria-label="notes"
-								minRows={3}
-								placeholder="Enter your notes here..."
-								className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-							/>
+							<Select {...field} className="w-48">
+								<MenuItem value="noun">Noun</MenuItem>
+								<MenuItem value="pronoun">Pronoun</MenuItem>
+								<MenuItem value="verb">Verb</MenuItem>
+								<MenuItem value="adjective">Adjective</MenuItem>
+								<MenuItem value="sentence">Sentence</MenuItem>
+							</Select>
 						)}
 					/>
-					<Button variant="contained" type="submit">
-						Zapisz
-					</Button>
 				</Box>
+				<Controller
+					name="notes"
+					control={control}
+					render={({ field }) => (
+						<TextareaAutosize
+							{...field}
+							aria-label="notes"
+							minRows={3}
+							placeholder="Enter your notes here..."
+							className="focus-2 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+						/>
+					)}
+				/>
+				<Button variant="contained" type="submit">
+					Zapisz
+				</Button>
 			</Box>
 		</form>
 	);

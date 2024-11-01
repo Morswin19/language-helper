@@ -7,6 +7,7 @@ interface WordStore {
 	setStoreWords: (words: Word[]) => void;
 	getWord: (wordId: string) => Word;
 	updateWord: (repeatStatus: string, updatedWord: Word) => void;
+	addWord: (word: Word) => void;
 }
 
 export const useWordStore = create<WordStore>((set, get) => ({
@@ -34,6 +35,11 @@ export const useWordStore = create<WordStore>((set, get) => ({
 				}
 				return word;
 			}),
+		}));
+	},
+	addWord: (word) => {
+		set((state) => ({
+			storeWords: [...state.storeWords, word],
 		}));
 	},
 }));

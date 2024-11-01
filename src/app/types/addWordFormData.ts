@@ -19,6 +19,8 @@ export type WordRow = {
 	numberOfBadRepeats: number;
 	numberOfMediumRepeats: number;
 	numberOfGoodRepeats: number;
+	streak: number;
+	percentOfGoodRepeats: number;
 	lastRepeatDate: Date;
 	nextRepeatDate: Date;
 	notes: string;

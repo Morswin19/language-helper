@@ -13,18 +13,7 @@ export default function UserLayout({
 	return (
 		<>
 			<Header userID={params.userID} />
-			<Box className="container mx-auto my-4 flex justify-center gap-4 border-8 border-cyan-100 px-4">
-				<Link className="uppercase" href={`/users/${params.userID}/form`}>
-					Form
-				</Link>
-				<Link className="uppercase" href={`/users/${params.userID}/repeats`}>
-					Repeats
-				</Link>
-				<Link className="uppercase" href={`/users/${params.userID}/words`}>
-					Words
-				</Link>
-			</Box>
-			{children}
+			<Box className="p-4 md:p-20">{children}</Box>
 		</>
 	);
 }
