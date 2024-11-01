@@ -10,6 +10,7 @@ import {
 	TextField,
 	TextareaAutosize,
 	Button,
+	Typography,
 } from "@mui/material";
 
 import { useForm, Controller } from "react-hook-form";
@@ -54,21 +55,9 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<Box className="flex flex-wrap justify-items-center gap-2 p-8 pb-20 sm:gap-16 sm:p-20">
+			<Box className="flex flex-col gap-4">
 				<Box>
-					<Controller
-						name="partOfSpeech"
-						control={control}
-						render={({ field }) => (
-							<Select {...field} fullWidth>
-								<MenuItem value="noun">Noun</MenuItem>
-								<MenuItem value="pronoun">Pronoun</MenuItem>
-								<MenuItem value="verb">Verb</MenuItem>
-								<MenuItem value="adjective">Adjective</MenuItem>
-								<MenuItem value="sentence">Sentence</MenuItem>
-							</Select>
-						)}
-					/>
+					<Typography>word language</Typography>
 					<Controller
 						name="sourceLanguage"
 						control={control}
@@ -81,23 +70,25 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 							</RadioGroup>
 						)}
 					/>
-					<Controller
-						name="sourceWord"
-						control={control}
-						render={({ field }) => (
-							<TextField
-								{...field}
-								fullWidth
-								label="Dodaj słowo"
-								variant="outlined"
-								margin="normal"
-								error={!!errors.sourceWord}
-								helperText={errors.sourceWord?.message}
-							/>
-						)}
-					/>
 				</Box>
+				<Controller
+					name="sourceWord"
+					control={control}
+					render={({ field }) => (
+						<TextField
+							className="m-0"
+							{...field}
+							fullWidth
+							label="Add word"
+							variant="outlined"
+							margin="none"
+							error={!!errors.sourceWord}
+							helperText={errors.sourceWord?.message}
+						/>
+					)}
+				/>
 				<Box>
+					<Typography>translation language</Typography>
 					<Controller
 						name="targetLanguage"
 						control={control}
@@ -110,40 +101,54 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 							</RadioGroup>
 						)}
 					/>
-					<Controller
-						name="targetWord"
-						control={control}
-						render={({ field }) => (
-							<TextField
-								{...field}
-								fullWidth
-								label="Dodaj tłumaczenie"
-								variant="outlined"
-								margin="normal"
-								error={!!errors.targetWord}
-								helperText={errors.targetWord?.message}
-							/>
-						)}
-					/>
 				</Box>
+				<Controller
+					name="targetWord"
+					control={control}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							fullWidth
+							label="Add translation"
+							variant="outlined"
+							margin="none"
+							error={!!errors.targetWord}
+							helperText={errors.targetWord?.message}
+						/>
+					)}
+				/>
 				<Box>
+					<Typography>Part of speech</Typography>
 					<Controller
-						name="notes"
+						name="partOfSpeech"
 						control={control}
 						render={({ field }) => (
-							<TextareaAutosize
-								{...field}
-								aria-label="notes"
-								minRows={3}
-								placeholder="Enter your notes here..."
-								className="w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-							/>
+							<Select {...field} className="w-48">
+								<MenuItem value="noun">Noun</MenuItem>
+								<MenuItem value="pronoun">Pronoun</MenuItem>
+								<MenuItem value="verb">Verb</MenuItem>
+								<MenuItem value="adjective">Adjective</MenuItem>
+								<MenuItem value="sentence">Sentence</MenuItem>
+							</Select>
 						)}
 					/>
-					<Button variant="contained" type="submit">
-						Zapisz
-					</Button>
 				</Box>
+				<Controller
+					name="notes"
+					control={control}
+					render={({ field }) => (
+						<TextareaAutosize
+							{...field}
+							aria-label="notes"
+							minRows={3}
+							placeholder="Enter your notes here..."
+							className="focus-2 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+						/>
+					)}
+				/>
+				<Button variant="contained" type="submit">
+					Zapisz
+				</Button>
 			</Box>
 		</form>
 	);
