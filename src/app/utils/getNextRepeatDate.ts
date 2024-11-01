@@ -1,7 +1,7 @@
 export const getNextRepeatDate = (repeats: number, goodRepeats: number, badRepeats: number) => {
 	const percentOfGoodRepeats = (goodRepeats * 100) / repeats;
 
-	let nextRepeatDate = new Date();
+	const nextRepeatDate = new Date();
 
 	if (percentOfGoodRepeats < 20) {
 		nextRepeatDate.setDate(nextRepeatDate.getDate() + 1); // add 1 day

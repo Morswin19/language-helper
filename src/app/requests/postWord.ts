@@ -4,7 +4,7 @@ export const postWord = async (
 	wordData: WordFormData,
 ): Promise<{ success: boolean; data?: any; error?: string }> => {
 	try {
-		const response = await fetch("http://localhost:3000/api/words", {
+		const response = await fetch(`http://localhost:3000/api/words`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
