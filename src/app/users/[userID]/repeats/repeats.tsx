@@ -19,7 +19,7 @@ export const Repeats = ({ words }: { words: Word[] }) => {
 	const handleShowTranslation = () => setShowTranslation((prev) => !prev);
 
 	const handleRepeatWord = (repeatStatus: string, wordID: string) => {
-		let updatedWord = getWord(wordID);
+		const updatedWord = getWord(wordID);
 		updateRepeatedWordInDB(repeatStatus, updatedWord);
 		updateWord(repeatStatus, updatedWord);
 		handleShowTranslation();
@@ -27,7 +27,7 @@ export const Repeats = ({ words }: { words: Word[] }) => {
 	};
 
 	useEffect(() => {
-		let repeatBorderDate = new Date();
+		const repeatBorderDate = new Date();
 		repeatBorderDate.setDate(repeatBorderDate.getDate() + 1);
 		repeatBorderDate.setHours(2, 0, 0, 0);
 

@@ -54,7 +54,7 @@ const columns: GridColDef[] = [
 const paginationModel = { page: 0, pageSize: 100 };
 
 export default function WordsGrid({ words }: { words: Word[] }) {
-	let rows: WordRow[] = [];
+	const rows: WordRow[] = [];
 
 	const { storeWords, setStoreWords } = useWordStore();
 

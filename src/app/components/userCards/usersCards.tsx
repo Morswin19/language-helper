@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { User } from "@/app/models/User";
 import theme from "@/theme";
-import { Button, Card, CardActions, CardContent, Typography, useTheme } from "@mui/material";
+import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
 
 export default function UsersCards({ users }: { users: User[] }) {
 	const router = useRouter();
