@@ -19,6 +19,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { postWord } from "@/app/requests/postWord";
 import { WordFormData } from "@/app/types/addWordFormData";
 import { wordFormSchema } from "./formSchema";
+import { useWordStore } from "@/app/store/store";
 
 export default function UserForm({ params }: { params: { userID: string } }) {
 	const {
@@ -39,14 +40,21 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 		},
 	});
 
+	const { addWord } = useWordStore();
+
 	const onSubmit = async (data: WordFormData) => {
 		const result = await postWord(data);
 		if (result.success) {
 			console.log("Word posted successfully:");
+			const newWord = result.data;
+			newWord.word.nextRepeatDate = new Date();
+			newWord.word.lastRepeatDate = new Date();
+			addWord(newWord.word);
 			reset({
 				sourceWord: "",
 				targetWord: "",
 				notes: "",
+				userId: `${params.userID}`,
 			});
 		} else {
 			console.error("Failed to post word:", result.error);
