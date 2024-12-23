@@ -1,18 +1,20 @@
 import * as React from "react";
-import Link from "next/link";
 import { Box } from "@mui/material";
 import { Header } from "@/app/components/header/header";
+import { getUser } from "@/app/requests/getUser";
 
-export default function UserLayout({
+export default async function UserLayout({
 	children,
 	params,
 }: {
 	children: React.ReactNode;
 	params: { userID: string };
 }) {
+	const user = await getUser(params.userID);
+
 	return (
 		<>
-			<Header userID={params.userID} />
+			<Header user={user} />
 			<Box className="p-4 md:p-20">{children}</Box>
 		</>
 	);
