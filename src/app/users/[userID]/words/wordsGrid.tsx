@@ -11,10 +11,12 @@ import DeleteWordDialog from "./deleteWordDialog";
 
 const paginationModel = { page: 0, pageSize: 100 };
 
-export default function WordsGrid({ words }: { words: Word[] }) {
+export default function WordsGrid() {
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 	const [dialogActiveWord, setDialogActiveWord] = useState("");
 	const [dialogActiveWordID, setDialogActiveWordID] = useState("");
+
+	const { storeWords, setStoreWords } = useWordStore();
 
 	const rows: WordRow[] = [];
 
@@ -93,12 +95,6 @@ export default function WordsGrid({ words }: { words: Word[] }) {
 		setDialogActiveWordID(wordID);
 		setDialogActiveWord(sourceWord);
 	};
-
-	const { storeWords, setStoreWords } = useWordStore();
-
-	if (storeWords.length === 0) {
-		setStoreWords(words);
-	}
 
 	storeWords.forEach((word) => {
 		rows.push({

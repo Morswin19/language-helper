@@ -1,13 +1,10 @@
-import { getUserWords } from "@/app/requests/getUserWords";
 import { Box } from "@mui/material";
 import { Repeats } from "./repeats";
 
-export default async function UserRepeats({ params }: { params: { userID: string } }) {
-	const words = await getUserWords(params.userID);
-
+export default function UserRepeats() {
 	return (
-		<Box className="min-h-screen items-center justify-items-center gap-16 p-8 pb-20 sm:p-20">
-			<Repeats words={words} />
+		<Box className="flex min-h-screen flex-col items-center justify-items-center p-8 pb-20 sm:p-20">
+			<Repeats />
 		</Box>
 	);
 }
