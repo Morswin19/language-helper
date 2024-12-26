@@ -7,15 +7,15 @@ const theme = createTheme({
 	},
 	palette: {
 		primary: {
-			main: "#000000",
+			main: "#131313",
 			light: "#DDDDDD",
-			dark: "#333333",
+			dark: "#353535",
 			contrastText: "#FFFFFF",
 		},
 		secondary: {
 			main: "#FFFFFF",
 			light: "#DDDDDD",
-			dark: "#333333",
+			dark: "#353535",
 			contrastText: "#000000",
 		},
 	},
