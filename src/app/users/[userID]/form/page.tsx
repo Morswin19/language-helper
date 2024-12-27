@@ -21,6 +21,8 @@ import { WordFormData } from "@/app/types/addWordFormData";
 import { wordFormSchema } from "./formSchema";
 import { useWordStore } from "@/app/store/store";
 
+import { texts } from "@/app/constants/texts";
+
 export default function UserForm({ params }: { params: { userID: string } }) {
 	const {
 		control,
@@ -132,11 +134,12 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 						control={control}
 						render={({ field }) => (
 							<Select {...field} className="w-48">
-								<MenuItem value="noun">Noun</MenuItem>
-								<MenuItem value="pronoun">Pronoun</MenuItem>
-								<MenuItem value="verb">Verb</MenuItem>
-								<MenuItem value="adjective">Adjective</MenuItem>
-								<MenuItem value="sentence">Sentence</MenuItem>
+								<MenuItem value="noun">{texts.form.noun}</MenuItem>
+								<MenuItem value="pronoun">{texts.form.pronoun}</MenuItem>
+								<MenuItem value="verb">{texts.form.verb}</MenuItem>
+								<MenuItem value="adverb">{texts.form.adverb}</MenuItem>
+								<MenuItem value="adjective">{texts.form.adjective}</MenuItem>
+								<MenuItem value="sentence">{texts.form.sentence}</MenuItem>
 							</Select>
 						)}
 					/>

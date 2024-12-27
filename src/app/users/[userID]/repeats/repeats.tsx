@@ -3,15 +3,14 @@
 import { Word } from "@/app/models/Word";
 import { useWordStore } from "@/app/store/store";
 import { updateRepeatedWordInDB } from "@/app/utils/updateRepeatedWordInDB";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Chip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { RepeatedWordInfo } from "./repeatedWordInfo";
 
-export const Repeats = ({ words }: { words: Word[] }) => {
+import { texts } from "@/app/constants/texts";
+
+export const Repeats = () => {
 	const { storeWords, setStoreWords, getWord, updateWord } = useWordStore();
-
-	if (storeWords.length === 0) {
-		setStoreWords(words);
-	}
 
 	const [showTranslation, setShowTranslation] = useState<boolean>(false);
 	const [wordsToRepeat, setWordsToRepeat] = useState<Word[]>(storeWords);
@@ -27,35 +26,34 @@ export const Repeats = ({ words }: { words: Word[] }) => {
 	};
 
 	useEffect(() => {
-		const repeatBorderDate = new Date();
-		repeatBorderDate.setDate(repeatBorderDate.getDate() + 1);
-		repeatBorderDate.setHours(2, 0, 0, 0);
+		if (!wordsToRepeat.length) {
+			const repeatBorderDate = new Date();
+			repeatBorderDate.setDate(repeatBorderDate.getDate() + 1);
+			repeatBorderDate.setHours(2, 0, 0, 0);
 
-		if (storeWords.length === 0) {
-			setWordsToRepeat(
-				[...words]
-					.filter((word) => new Date(word.nextRepeatDate) < repeatBorderDate)
-					.sort(() => Math.random() - 0.5),
-			);
-		} else {
 			setWordsToRepeat(
 				[...storeWords]
 					.filter((word) => new Date(word.nextRepeatDate) < repeatBorderDate)
 					.sort(() => Math.random() - 0.5),
 			);
 		}
-	}, []);
+	}, [storeWords]);
 
 	return (
 		<>
 			{wordsToRepeat.length > 0 ? (
 				<>
+					<Chip className="self-end" label={wordsToRepeat[0].partOfSpeech} color="primary" />
 					<Box>
-						<Typography variant="h6">{wordsToRepeat[0].sourceWord}</Typography>
-						<Typography variant="h6">{showTranslation && wordsToRepeat[0].targetWord}</Typography>
+						<Typography align="center" variant="h6">
+							{wordsToRepeat[0].sourceWord}
+						</Typography>
+						<Typography align="center" className="text-center" variant="h6">
+							{showTranslation && wordsToRepeat[0].targetWord}
+						</Typography>
 					</Box>
 					{showTranslation ? (
-						<Box className="flex gap-2">
+						<Box className="mb-4 flex gap-4">
 							<Button
 								variant="contained"
 								onClick={() => handleRepeatWord("BAD", wordsToRepeat[0]._id)}
@@ -76,27 +74,13 @@ export const Repeats = ({ words }: { words: Word[] }) => {
 							</Button>
 						</Box>
 					) : (
-						<Box className="flex gap-2">
+						<Box className="mb-4 flex gap-2">
 							<Button variant="contained" onClick={handleShowTranslation}>
 								SHOW
 							</Button>
 						</Box>
 					)}
-					<Typography>NumberOfRepeats: {wordsToRepeat[0].numberOfRepeats}</Typography>
-					<Typography>NumberOfGoodRepeats: {wordsToRepeat[0].numberOfGoodRepeats}</Typography>
-					<Typography>NumberOfMediumRepeats: {wordsToRepeat[0].numberOfMediumRepeats}</Typography>
-					<Typography>NumberOfBadRepeats: {wordsToRepeat[0].numberOfBadRepeats}</Typography>
-					<Typography>Streak: {wordsToRepeat[0].goodRepeatsInRow}</Typography>
-					<Typography>
-						LastRepeatDate: {String(new Date(wordsToRepeat[0].lastRepeatDate))}
-					</Typography>
-					<Typography>
-						NextRepeatDate: {String(new Date(wordsToRepeat[0].nextRepeatDate))}
-					</Typography>
-					<Typography>
-						Percent of good repeats:{" "}
-						{(wordsToRepeat[0].numberOfGoodRepeats * 100) / wordsToRepeat[0].numberOfRepeats}
-					</Typography>
+					<RepeatedWordInfo word={wordsToRepeat[0]} />
 				</>
 			) : (
 				<Typography>Nothing to repeat</Typography>

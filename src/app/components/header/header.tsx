@@ -14,13 +14,18 @@ import Typography from "@mui/material/Typography";
 import { useWordStore } from "@/app/store/store";
 import { useUserStore } from "@/app/store/userStore";
 import { User } from "@/app/models/User";
+import { Word } from "@/app/models/Word";
 
-export const Header = ({ user }: { user: User }) => {
-	const { storeWords } = useWordStore();
+export const Header = ({ user, words }: { user: User; words: Word[] }) => {
+	const { storeWords, setStoreWords } = useWordStore();
 	const { storeUser, setUser } = useUserStore();
 
 	if (storeUser._id === "") {
 		setUser(user);
+	}
+
+	if (!storeWords.length) {
+		setStoreWords(words);
 	}
 
 	return (
@@ -28,7 +33,7 @@ export const Header = ({ user }: { user: User }) => {
 			<AppBar position="static">
 				<Toolbar>
 					<Box className="flex grow gap-2">
-						<Link href={`/users/${user._id}/words`}>
+						<Link href={`/users/${storeUser._id}/words`}>
 							<Button variant="outlined" color="secondary">
 								<TocIcon />
 								<Typography variant="subtitle2" className="hidden md:block">
@@ -37,7 +42,7 @@ export const Header = ({ user }: { user: User }) => {
 								<Typography variant="subtitle2">{storeWords.length}</Typography>
 							</Button>
 						</Link>
-						<Link href={`/users/${user._id}/repeats`}>
+						<Link href={`/users/${storeUser._id}/repeats`}>
 							<Button variant="outlined" color="secondary">
 								<RepeatIcon />
 								<Typography variant="subtitle2" className="hidden md:block">
@@ -48,7 +53,7 @@ export const Header = ({ user }: { user: User }) => {
 								</Typography>
 							</Button>
 						</Link>
-						<Link href={`/users/${user._id}/form`}>
+						<Link href={`/users/${storeUser._id}/form`}>
 							<Button variant="outlined" color="secondary">
 								<AddIcon />{" "}
 								<Typography variant="subtitle2" className="hidden md:block">

@@ -4,17 +4,18 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, IconButton } from "@mui/material";
 import { useWordStore } from "@/app/store/store";
 import { WordRow } from "@/app/types/addWordFormData";
-import { Word } from "@/app/models/Word";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useState } from "react";
 import DeleteWordDialog from "./deleteWordDialog";
 
 const paginationModel = { page: 0, pageSize: 100 };
 
-export default function WordsGrid({ words }: { words: Word[] }) {
+export default function WordsGrid() {
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 	const [dialogActiveWord, setDialogActiveWord] = useState("");
 	const [dialogActiveWordID, setDialogActiveWordID] = useState("");
+
+	const { storeWords, setStoreWords } = useWordStore();
 
 	const rows: WordRow[] = [];
 
@@ -94,12 +95,6 @@ export default function WordsGrid({ words }: { words: Word[] }) {
 		setDialogActiveWord(sourceWord);
 	};
 
-	const { storeWords, setStoreWords } = useWordStore();
-
-	if (storeWords.length === 0) {
-		setStoreWords(words);
-	}
-
 	storeWords.forEach((word) => {
 		rows.push({
 			id: word._id,
@@ -112,7 +107,9 @@ export default function WordsGrid({ words }: { words: Word[] }) {
 			numberOfMediumRepeats: word.numberOfMediumRepeats,
 			numberOfBadRepeats: word.numberOfBadRepeats,
 			streak: word.goodRepeatsInRow,
-			percentOfGoodRepeats: (word.numberOfGoodRepeats * 100) / word.numberOfRepeats,
+			percentOfGoodRepeats: word.numberOfRepeats
+				? Math.ceil((word.numberOfGoodRepeats * 100) / word.numberOfRepeats)
+				: 0,
 			lastRepeatDate: new Date(word.lastRepeatDate),
 			nextRepeatDate: new Date(word.nextRepeatDate),
 			partOfSpeech: word.partOfSpeech,
@@ -122,7 +119,7 @@ export default function WordsGrid({ words }: { words: Word[] }) {
 
 	return (
 		<>
-			<Box className="container mx-auto my-4 flex justify-center gap-4 border-8 border-cyan-100 px-4">
+			<Box className="container mx-auto my-4 flex justify-center px-4">
 				<DataGrid
 					rows={rows}
 					columns={columns}
