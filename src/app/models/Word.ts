@@ -26,6 +26,7 @@ const partOfSpeechValues = [
 	"adverb",
 	"preposition",
 	"conjunction",
+	"sentence",
 ] as const;
 
 export const languages = ["PL", "EN", "ES", "CAT"] as const;
