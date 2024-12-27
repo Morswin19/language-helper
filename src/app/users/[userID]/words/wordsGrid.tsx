@@ -4,7 +4,6 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, IconButton } from "@mui/material";
 import { useWordStore } from "@/app/store/store";
 import { WordRow } from "@/app/types/addWordFormData";
-import { Word } from "@/app/models/Word";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useState } from "react";
 import DeleteWordDialog from "./deleteWordDialog";
@@ -108,7 +107,9 @@ export default function WordsGrid() {
 			numberOfMediumRepeats: word.numberOfMediumRepeats,
 			numberOfBadRepeats: word.numberOfBadRepeats,
 			streak: word.goodRepeatsInRow,
-			percentOfGoodRepeats: (word.numberOfGoodRepeats * 100) / word.numberOfRepeats,
+			percentOfGoodRepeats: word.numberOfRepeats
+				? Math.ceil((word.numberOfGoodRepeats * 100) / word.numberOfRepeats)
+				: 0,
 			lastRepeatDate: new Date(word.lastRepeatDate),
 			nextRepeatDate: new Date(word.nextRepeatDate),
 			partOfSpeech: word.partOfSpeech,
@@ -118,7 +119,7 @@ export default function WordsGrid() {
 
 	return (
 		<>
-			<Box className="container mx-auto my-4 flex justify-center gap-4 border-8 border-cyan-100 px-4">
+			<Box className="container mx-auto my-4 flex justify-center px-4">
 				<DataGrid
 					rows={rows}
 					columns={columns}

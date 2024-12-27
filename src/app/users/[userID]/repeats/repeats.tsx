@@ -7,6 +7,8 @@ import { Box, Button, Chip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { RepeatedWordInfo } from "./repeatedWordInfo";
 
+import { texts } from "@/app/constants/texts";
+
 export const Repeats = () => {
 	const { storeWords, setStoreWords, getWord, updateWord } = useWordStore();
 
