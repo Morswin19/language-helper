@@ -1,4 +1,4 @@
-import UsersCards from "../components/userCards/usersCards";
+import UsersCards from "../../components/userCards/usersCards";
 import { getUsers } from "../requests/getUsers";
 
 import { texts } from "@/app/constants/texts";

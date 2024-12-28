@@ -8,4 +8,13 @@ export const texts = {
 		adjective: "Adjective",
 		sentence: "Sentence",
 	},
+	repeats: {
+		title: "repeats",
+		good: "good",
+		bad: "bad",
+		medium: "medium",
+		streak: "streak",
+		last: "last repeat",
+		percent: "percent of good repeats",
+	},
 };
