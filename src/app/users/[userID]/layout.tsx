@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Box } from "@mui/material";
-import { Header } from "@/app/components/header/header";
-import { getUser } from "@/app/requests/getUser";
-import { getUserWords } from "@/app/requests/getUserWords";
+import { Header } from "@/components/header/header";
+import { getUserWords } from "@/services/getUserWords";
 
 export default async function UserLayout({
 	children,
@@ -11,12 +10,9 @@ export default async function UserLayout({
 	children: React.ReactNode;
 	params: { userID: string };
 }) {
-	const user = await getUser(params.userID);
-	const words = await getUserWords(params.userID);
-
 	return (
 		<>
-			<Header user={user} words={words} />
+			<Header userId={params.userID} />
 			<Box className="p-4 md:p-20">{children}</Box>
 		</>
 	);

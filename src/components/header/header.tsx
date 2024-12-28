@@ -11,21 +11,20 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import TocIcon from "@mui/icons-material/Toc";
 import Link from "next/link";
 import Typography from "@mui/material/Typography";
-import { useWordStore } from "@/app/store/store";
-import { useUserStore } from "@/app/store/userStore";
-import { User } from "@/app/models/User";
-import { Word } from "@/app/models/Word";
+import { useWordStore } from "@/store/wordStore";
+import { useUserStore } from "@/store/userStore";
+import { texts } from "@/constants/texts";
 
-export const Header = ({ user, words }: { user: User; words: Word[] }) => {
-	const { storeWords, setStoreWords } = useWordStore();
-	const { storeUser, setUser } = useUserStore();
+export const Header = ({ userId }: { userId: string }) => {
+	const { storeWords, getWords } = useWordStore();
+	const { storeUser, getUserInfo } = useUserStore();
 
 	if (storeUser._id === "") {
-		setUser(user);
+		getUserInfo(userId);
 	}
 
 	if (!storeWords.length) {
-		setStoreWords(words);
+		getWords(userId);
 	}
 
 	return (
@@ -37,7 +36,7 @@ export const Header = ({ user, words }: { user: User; words: Word[] }) => {
 							<Button variant="outlined" color="secondary">
 								<TocIcon />
 								<Typography variant="subtitle2" className="hidden md:block">
-									Your Words:
+									{texts.header.words}:
 								</Typography>{" "}
 								<Typography variant="subtitle2">{storeWords.length}</Typography>
 							</Button>
@@ -46,7 +45,7 @@ export const Header = ({ user, words }: { user: User; words: Word[] }) => {
 							<Button variant="outlined" color="secondary">
 								<RepeatIcon />
 								<Typography variant="subtitle2" className="hidden md:block">
-									Repeats for today:
+									{texts.header.repeats}:
 								</Typography>{" "}
 								<Typography variant="subtitle2">
 									{storeWords.filter((word) => new Date(word.nextRepeatDate) < new Date()).length}
@@ -57,12 +56,14 @@ export const Header = ({ user, words }: { user: User; words: Word[] }) => {
 							<Button variant="outlined" color="secondary">
 								<AddIcon />{" "}
 								<Typography variant="subtitle2" className="hidden md:block">
-									Add word
+									{texts.header.add}
 								</Typography>
 							</Button>
 						</Link>
 					</Box>
-					<Typography className="hidden md:block">Hello {storeUser.username}</Typography>
+					<Typography className="hidden capitalize md:block">
+						{texts.header.hi} {storeUser.username}
+					</Typography>
 					<IconButton color="inherit" aria-label="menu">
 						<PowerSettingsNewIcon />
 					</IconButton>

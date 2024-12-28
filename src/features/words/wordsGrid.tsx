@@ -2,11 +2,12 @@
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, IconButton } from "@mui/material";
-import { useWordStore } from "@/app/store/store";
-import { WordRow } from "@/app/types/addWordFormData";
+import { useWordStore } from "@/store/wordStore";
+import { WordRow } from "@/types/addWordFormData";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useState } from "react";
 import DeleteWordDialog from "./deleteWordDialog";
+import { texts } from "@/constants/texts";
 
 const paginationModel = { page: 0, pageSize: 100 };
 
@@ -20,37 +21,37 @@ export default function WordsGrid() {
 	const rows: WordRow[] = [];
 
 	const columns: GridColDef[] = [
-		{ field: "sourceWord", headerName: "Source Word", width: 130 },
-		{ field: "targetWord", headerName: "Target Word", width: 130 },
-		{ field: "sourceLanguage", headerName: "Source Language", width: 50 },
-		{ field: "targetLanguage", headerName: "Target Language", width: 50 },
+		{ field: "sourceWord", headerName: texts.source, width: 130 },
+		{ field: "targetWord", headerName: texts.target, width: 130 },
+		{ field: "sourceLanguage", headerName: texts.words.sourceLang, width: 50 },
+		{ field: "targetLanguage", headerName: texts.words.targetLang, width: 50 },
 		{
 			field: "numberOfRepeats",
-			headerName: "Repeats",
+			headerName: texts.repeats.title,
 			type: "number",
 			width: 50,
 		},
 		{
 			field: "numberOfGoodRepeats",
-			headerName: "Good",
+			headerName: texts.good,
 			type: "number",
 			width: 50,
 		},
 		{
 			field: "numberOfMediumRepeats",
-			headerName: "Medium",
+			headerName: texts.medium,
 			type: "number",
 			width: 50,
 		},
 		{
 			field: "numberOfBadRepeats",
-			headerName: "Bad",
+			headerName: texts.bad,
 			type: "number",
 			width: 50,
 		},
 		{
 			field: "streak",
-			headerName: "Streak",
+			headerName: texts.streak,
 			type: "number",
 			width: 50,
 		},
@@ -62,21 +63,21 @@ export default function WordsGrid() {
 		},
 		{
 			field: "lastRepeatDate",
-			headerName: "last repeat",
+			headerName: texts.last,
 			type: "date",
 			width: 110,
 		},
 		{
 			field: "nextRepeatDate",
-			headerName: "next repeat",
+			headerName: texts.words.next,
 			type: "date",
 			width: 110,
 		},
-		{ field: "partOfSpeech", headerName: "Part Of Speech", width: 100 },
-		{ field: "notes", headerName: "Notes", width: 100 },
+		{ field: "partOfSpeech", headerName: texts.part, width: 100 },
+		{ field: "notes", headerName: texts.words.notes, width: 100 },
 		{
 			field: "actions",
-			headerName: "Delete",
+			headerName: texts.words.delete,
 			width: 70,
 			renderCell: (params) => (
 				<IconButton

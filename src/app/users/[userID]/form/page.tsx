@@ -16,12 +16,12 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { postWord } from "@/app/requests/postWord";
-import { WordFormData } from "@/app/types/addWordFormData";
-import { wordFormSchema } from "./formSchema";
-import { useWordStore } from "@/app/store/store";
+import { postWord } from "@/services/postWord";
+import { WordFormData } from "@/types/addWordFormData";
+import { wordFormSchema } from "@/features/form/formSchema";
+import { useWordStore } from "@/store/wordStore";
 
-import { texts } from "@/app/constants/texts";
+import { texts } from "@/constants/texts";
 
 export default function UserForm({ params }: { params: { userID: string } }) {
 	const {
@@ -33,7 +33,7 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 		resolver: yupResolver(wordFormSchema),
 		defaultValues: {
 			userId: `${params.userID}`,
-			partOfSpeech: "noun",
+			partOfSpeech: texts.form.noun,
 			sourceLanguage: "PL",
 			targetLanguage: "EN",
 			sourceWord: "",
@@ -67,7 +67,7 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 		<form onSubmit={handleSubmit(onSubmit)}>
 			<Box className="flex flex-col gap-4">
 				<Box>
-					<Typography>word language</Typography>
+					<Typography>{texts.source}</Typography>
 					<Controller
 						name="sourceLanguage"
 						control={control}
@@ -89,7 +89,7 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 							className="m-0"
 							{...field}
 							fullWidth
-							label="Add word"
+							label={texts.form.sourcePlaceholder}
 							variant="outlined"
 							margin="none"
 							error={!!errors.sourceWord}
@@ -98,7 +98,7 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 					)}
 				/>
 				<Box>
-					<Typography>translation language</Typography>
+					<Typography>{texts.target}</Typography>
 					<Controller
 						name="targetLanguage"
 						control={control}
@@ -119,7 +119,7 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 						<TextField
 							{...field}
 							fullWidth
-							label="Add translation"
+							label={texts.form.targetPlaceholder}
 							variant="outlined"
 							margin="none"
 							error={!!errors.targetWord}
@@ -128,7 +128,7 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 					)}
 				/>
 				<Box>
-					<Typography>Part of speech</Typography>
+					<Typography>{texts.part}</Typography>
 					<Controller
 						name="partOfSpeech"
 						control={control}
@@ -152,13 +152,13 @@ export default function UserForm({ params }: { params: { userID: string } }) {
 							{...field}
 							aria-label="notes"
 							minRows={3}
-							placeholder="Enter your notes here..."
+							placeholder={texts.form.notesPlaceholder}
 							className="focus-2 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
 						/>
 					)}
 				/>
 				<Button variant="contained" type="submit">
-					Zapisz
+					{texts.form.submit}
 				</Button>
 			</Box>
 		</form>
