@@ -17,4 +17,8 @@ export const texts = {
 		last: "last repeat",
 		percent: "percent of good repeats",
 	},
+	login: {
+		choose: "choose your profile",
+		go: "login",
+	},
 };

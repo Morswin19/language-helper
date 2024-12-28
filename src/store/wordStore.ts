@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Word } from "../models/Word";
 import { getNextRepeatDate } from "../utils/getNextRepeatDate";
-import { getUserWords } from "../requests/getUserWords";
+import { getUserWords } from "../services/getUserWords";
 
 interface WordStore {
 	storeWords: Word[];

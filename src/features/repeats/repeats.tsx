@@ -2,10 +2,10 @@
 
 import { Word } from "@/models/Word";
 import { useWordStore } from "@/store/wordStore";
-import { updateRepeatedWordInDB } from "@/app/utils/updateRepeatedWordInDB";
+import { updateRepeatedWordInDB } from "@/utils/updateRepeatedWordInDB";
 import { Box, Button, Chip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { RepeatedWordInfo } from "../../../../features/repeats/repeatedWordInfo";
+import { RepeatedWordInfo } from "./repeatedWordInfo";
 
 export const Repeats = () => {
 	const { storeWords, setStoreWords, getWord, updateWord } = useWordStore();

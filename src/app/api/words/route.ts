@@ -1,5 +1,5 @@
-import dbConnect from "@/app/lib/dbConnect";
-import Word from "@/app/models/Word";
+import dbConnect from "@/lib/dbConnect";
+import Word from "@/models/Word";
 import { NextResponse } from "next/server";
 
 export async function GET() {

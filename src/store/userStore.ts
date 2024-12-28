@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { User } from "../models/User";
-import { getUser } from "../requests/getUser";
+import { getUser } from "../services/getUser";
 
 interface UserStore {
 	storeUser: User;

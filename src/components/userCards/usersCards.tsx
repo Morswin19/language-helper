@@ -1,9 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { User } from "@/app/models/User";
+import { User } from "@/models/User";
 import theme from "@/theme";
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { Fragment } from "react";
+import { texts } from "@/constants/texts";
 
 export default function UsersCards({ users }: { users: User[] }) {
 	const router = useRouter();
@@ -13,8 +15,8 @@ export default function UsersCards({ users }: { users: User[] }) {
 	};
 
 	return users.map((user: User) => (
-		<>
-			<Card key={user._id} sx={{ width: 275, bgcolor: theme.palette.primary.dark, m: 2 }}>
+		<Fragment key={user._id}>
+			<Card sx={{ width: 275, bgcolor: theme.palette.primary.dark, m: 2 }}>
 				<CardContent>
 					<Typography sx={{ color: theme.palette.primary.contrastText, mb: 1.5 }}>
 						{user.username}
@@ -33,10 +35,10 @@ export default function UsersCards({ users }: { users: User[] }) {
 						}}
 						size="small"
 					>
-						GO
+						{texts.login.go}
 					</Button>
 				</CardActions>
 			</Card>
-		</>
+		</Fragment>
 	));
 }

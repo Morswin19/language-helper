@@ -1,8 +1,8 @@
-import { Word } from "@/app/models/Word";
+import { Word } from "@/models/Word";
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-import { texts } from "@/app/constants/texts";
+import { texts } from "@/constants/texts";
 
 export const RepeatedWordInfo = ({ word }: { word: Word }) => {
 	return (

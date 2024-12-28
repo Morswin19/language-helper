@@ -11,8 +11,8 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import TocIcon from "@mui/icons-material/Toc";
 import Link from "next/link";
 import Typography from "@mui/material/Typography";
-import { useWordStore } from "@/app/store/wordStore";
-import { useUserStore } from "@/app/store/userStore";
+import { useWordStore } from "@/store/wordStore";
+import { useUserStore } from "@/store/userStore";
 
 export const Header = ({ userId }: { userId: string }) => {
 	const { storeWords, getWords } = useWordStore();
