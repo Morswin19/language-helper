@@ -1,5 +1,5 @@
 import { Word } from "../models/Word";
-import { patchRepeatedWord } from "../requests/patchRepeatedWord";
+import { patchRepeatedWord } from "@/services/patchRepeatedWord";
 import { UpdatedWord } from "../types/addWordFormData";
 import { getNextRepeatDate } from "./getNextRepeatDate";
 

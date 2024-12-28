@@ -2,8 +2,8 @@
 
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Box, IconButton } from "@mui/material";
-import { useWordStore } from "@/app/store/wordStore";
-import { WordRow } from "@/app/types/addWordFormData";
+import { useWordStore } from "@/store/wordStore";
+import { WordRow } from "@/types/addWordFormData";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useState } from "react";
 import DeleteWordDialog from "./deleteWordDialog";

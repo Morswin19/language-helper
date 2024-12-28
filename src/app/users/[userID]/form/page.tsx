@@ -16,12 +16,12 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { postWord } from "@/app/requests/postWord";
-import { WordFormData } from "@/app/types/addWordFormData";
-import { wordFormSchema } from "./formSchema";
-import { useWordStore } from "@/app/store/wordStore";
+import { postWord } from "@/services/postWord";
+import { WordFormData } from "@/types/addWordFormData";
+import { wordFormSchema } from "@/features/form/formSchema";
+import { useWordStore } from "@/store/wordStore";
 
-import { texts } from "@/app/constants/texts";
+import { texts } from "@/constants/texts";
 
 export default function UserForm({ params }: { params: { userID: string } }) {
 	const {

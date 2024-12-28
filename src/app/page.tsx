@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { texts } from "@/app/constants/texts";
+import { texts } from "@/constants/texts";
 import { Box } from "@mui/material";
 
 export default async function Home() {
