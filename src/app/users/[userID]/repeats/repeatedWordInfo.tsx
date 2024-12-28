@@ -2,53 +2,57 @@ import { Word } from "@/app/models/Word";
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
+import { texts } from "@/app/constants/texts";
+
 export const RepeatedWordInfo = ({ word }: { word: Word }) => {
 	return (
 		<>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					Repeats:
+					{texts.repeats.title}:
 				</Typography>
 				<Typography>{word.numberOfRepeats}</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					Good:
+					{texts.repeats.good}:
 				</Typography>
 				<Typography>{word.numberOfGoodRepeats}</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					Medium:
+					{texts.repeats.medium}:
 				</Typography>
 				<Typography>{word.numberOfMediumRepeats}</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					Bad:
+					{texts.repeats.bad}:
 				</Typography>
 				<Typography>{word.numberOfBadRepeats}</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					Streak:
+					{texts.repeats.streak}:
 				</Typography>
 				<Typography>{word.goodRepeatsInRow}</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					Last Repeat:
+					{texts.repeats.last}:
 				</Typography>
 				<Typography>{String(new Date(word.lastRepeatDate).toLocaleDateString("en-GB"))}</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					Percent of good repeats:
+					{texts.repeats.percent}:
 				</Typography>
 				<Typography>
 					{word.numberOfRepeats
-						? (word.numberOfGoodRepeats * 100) /
-							(word.numberOfBadRepeats + word.numberOfGoodRepeats)
+						? Math.ceil(
+								(word.numberOfGoodRepeats * 100) /
+									(word.numberOfBadRepeats + word.numberOfGoodRepeats),
+							) + "%"
 						: 0}
 				</Typography>
 			</Box>

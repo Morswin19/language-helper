@@ -3,7 +3,7 @@ import { patchRepeatedWord } from "../requests/patchRepeatedWord";
 import { UpdatedWord } from "../types/addWordFormData";
 import { getNextRepeatDate } from "./getNextRepeatDate";
 
-export const updateRepeatedWordInDB = (repeatStatus: string, updatedWord: Word) => {
+export const updateRepeatedWordInDB = async (repeatStatus: string, updatedWord: Word) => {
 	const newWord: UpdatedWord = {
 		lastRepeatDate: new Date(),
 		numberOfRepeats: updatedWord.numberOfRepeats + 1,
@@ -28,6 +28,12 @@ export const updateRepeatedWordInDB = (repeatStatus: string, updatedWord: Word) 
 		),
 	};
 
-	patchRepeatedWord(updatedWord._id, newWord);
+	const patchWord = await patchRepeatedWord(updatedWord._id, newWord);
+
+	if (patchWord.success) {
+		console.log("success");
+	}
+
+	console.log(patchWord);
 	return;
 };

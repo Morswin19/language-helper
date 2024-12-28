@@ -13,19 +13,17 @@ import Link from "next/link";
 import Typography from "@mui/material/Typography";
 import { useWordStore } from "@/app/store/store";
 import { useUserStore } from "@/app/store/userStore";
-import { User } from "@/app/models/User";
-import { Word } from "@/app/models/Word";
 
-export const Header = ({ user, words }: { user: User; words: Word[] }) => {
-	const { storeWords, setStoreWords } = useWordStore();
-	const { storeUser, setUser } = useUserStore();
+export const Header = ({ userId }: { userId: string }) => {
+	const { storeWords, getWords } = useWordStore();
+	const { storeUser, getUserInfo } = useUserStore();
 
 	if (storeUser._id === "") {
-		setUser(user);
+		getUserInfo(userId);
 	}
 
 	if (!storeWords.length) {
-		setStoreWords(words);
+		getWords(userId);
 	}
 
 	return (

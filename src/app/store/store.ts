@@ -1,10 +1,12 @@
 import { create } from "zustand";
 import { Word } from "../models/Word";
 import { getNextRepeatDate } from "../utils/getNextRepeatDate";
+import { getUserWords } from "../requests/getUserWords";
 
 interface WordStore {
 	storeWords: Word[];
 	setStoreWords: (words: Word[]) => void;
+	getWords: (userId: string) => Promise<void>;
 	getWord: (wordId: string) => Word;
 	updateWord: (repeatStatus: string, updatedWord: Word) => void;
 	addWord: (word: Word) => void;
@@ -13,6 +15,11 @@ interface WordStore {
 export const useWordStore = create<WordStore>((set, get) => ({
 	storeWords: [],
 	setStoreWords: (storeWords) => set({ storeWords }),
+	getWords: async (userId: string) => {
+		const response = await getUserWords(userId);
+		console.log(response);
+		set({ storeWords: response });
+	},
 	getWord: (wordId) => get().storeWords.filter((word) => word._id === wordId)[0],
 	updateWord: (repeatStatus: string, updatedWord: Word) => {
 		set((state) => ({
