@@ -19,7 +19,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { postWord } from "@/app/requests/postWord";
 import { WordFormData } from "@/app/types/addWordFormData";
 import { wordFormSchema } from "./formSchema";
-import { useWordStore } from "@/app/store/store";
+import { useWordStore } from "@/app/store/wordStore";
 
 import { texts } from "@/app/constants/texts";
 

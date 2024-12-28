@@ -1,5 +1,5 @@
 import { deleteWord } from "@/app/requests/deleteWord";
-import { useWordStore } from "@/app/store/store";
+import { useWordStore } from "@/app/store/wordStore";
 import {
 	Button,
 	Dialog,

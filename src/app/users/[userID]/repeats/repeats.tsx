@@ -1,7 +1,7 @@
 "use client";
 
 import { Word } from "@/app/models/Word";
-import { useWordStore } from "@/app/store/store";
+import { useWordStore } from "@/app/store/wordStore";
 import { updateRepeatedWordInDB } from "@/app/utils/updateRepeatedWordInDB";
 import { Box, Button, Chip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";

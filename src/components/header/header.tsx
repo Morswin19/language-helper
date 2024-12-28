@@ -11,7 +11,7 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import TocIcon from "@mui/icons-material/Toc";
 import Link from "next/link";
 import Typography from "@mui/material/Typography";
-import { useWordStore } from "@/app/store/store";
+import { useWordStore } from "@/app/store/wordStore";
 import { useUserStore } from "@/app/store/userStore";
 
 export const Header = ({ userId }: { userId: string }) => {
