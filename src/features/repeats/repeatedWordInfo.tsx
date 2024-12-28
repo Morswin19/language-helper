@@ -15,37 +15,37 @@ export const RepeatedWordInfo = ({ word }: { word: Word }) => {
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					{texts.repeats.good}:
+					{texts.good}:
 				</Typography>
 				<Typography>{word.numberOfGoodRepeats}</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					{texts.repeats.medium}:
+					{texts.medium}:
 				</Typography>
 				<Typography>{word.numberOfMediumRepeats}</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					{texts.repeats.bad}:
+					{texts.bad}:
 				</Typography>
 				<Typography>{word.numberOfBadRepeats}</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					{texts.repeats.streak}:
+					{texts.streak}:
 				</Typography>
 				<Typography>{word.goodRepeatsInRow}</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					{texts.repeats.last}:
+					{texts.last}:
 				</Typography>
 				<Typography>{String(new Date(word.lastRepeatDate).toLocaleDateString("en-GB"))}</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
-					{texts.repeats.percent}:
+					{texts.percent}:
 				</Typography>
 				<Typography>
 					{word.numberOfRepeats

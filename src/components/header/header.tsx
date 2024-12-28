@@ -13,6 +13,7 @@ import Link from "next/link";
 import Typography from "@mui/material/Typography";
 import { useWordStore } from "@/store/wordStore";
 import { useUserStore } from "@/store/userStore";
+import { texts } from "@/constants/texts";
 
 export const Header = ({ userId }: { userId: string }) => {
 	const { storeWords, getWords } = useWordStore();
@@ -35,7 +36,7 @@ export const Header = ({ userId }: { userId: string }) => {
 							<Button variant="outlined" color="secondary">
 								<TocIcon />
 								<Typography variant="subtitle2" className="hidden md:block">
-									Your Words:
+									{texts.header.words}:
 								</Typography>{" "}
 								<Typography variant="subtitle2">{storeWords.length}</Typography>
 							</Button>
@@ -44,7 +45,7 @@ export const Header = ({ userId }: { userId: string }) => {
 							<Button variant="outlined" color="secondary">
 								<RepeatIcon />
 								<Typography variant="subtitle2" className="hidden md:block">
-									Repeats for today:
+									{texts.header.repeats}:
 								</Typography>{" "}
 								<Typography variant="subtitle2">
 									{storeWords.filter((word) => new Date(word.nextRepeatDate) < new Date()).length}
@@ -55,12 +56,14 @@ export const Header = ({ userId }: { userId: string }) => {
 							<Button variant="outlined" color="secondary">
 								<AddIcon />{" "}
 								<Typography variant="subtitle2" className="hidden md:block">
-									Add word
+									{texts.header.add}
 								</Typography>
 							</Button>
 						</Link>
 					</Box>
-					<Typography className="hidden md:block">Hello {storeUser.username}</Typography>
+					<Typography className="hidden capitalize md:block">
+						{texts.header.hi} {storeUser.username}
+					</Typography>
 					<IconButton color="inherit" aria-label="menu">
 						<PowerSettingsNewIcon />
 					</IconButton>

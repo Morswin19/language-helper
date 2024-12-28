@@ -1,3 +1,4 @@
+import { texts } from "@/constants/texts";
 import { deleteWord } from "@/services/deleteWord";
 import { useWordStore } from "@/store/wordStore";
 import {
@@ -46,7 +47,7 @@ export default function DeleteWordDialog({
 			aria-labelledby="alert-dialog-title"
 			aria-describedby="alert-dialog-description"
 		>
-			<DialogTitle id="alert-dialog-title">Do you want to remove word?</DialogTitle>
+			<DialogTitle id="alert-dialog-title">{texts.words.remove}</DialogTitle>
 			<DialogContent>
 				<DialogContentText id="alert-dialog-description">
 					<Typography variant="h2" className="text-center">
@@ -56,14 +57,14 @@ export default function DeleteWordDialog({
 			</DialogContent>
 			<DialogActions sx={{ justifyContent: "space-between", px: 2, pb: 2 }}>
 				<Button variant="contained" onClick={handleDeleteDialogExitClick}>
-					NO
+					{texts.no}
 				</Button>
 				<Button
 					variant="contained"
 					onClick={() => handleDialogDeleteButtonClick(dialogActiveWordID)}
 					autoFocus
 				>
-					YES
+					{texts.yes}
 				</Button>
 			</DialogActions>
 		</Dialog>
