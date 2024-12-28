@@ -1,5 +1,5 @@
+import { Repeats } from "@/features/repeats/repeats";
 import { Box } from "@mui/material";
-import { Repeats } from "../../../../features/repeats/repeats";
 
 export default function UserRepeats() {
 	return (

@@ -6,12 +6,13 @@ import { updateRepeatedWordInDB } from "@/utils/updateRepeatedWordInDB";
 import { Box, Button, Chip, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { RepeatedWordInfo } from "./repeatedWordInfo";
+import { texts } from "@/constants/texts";
 
 export const Repeats = () => {
 	const { storeWords, setStoreWords, getWord, updateWord } = useWordStore();
 
 	const [showTranslation, setShowTranslation] = useState<boolean>(false);
-	const [wordsToRepeat, setWordsToRepeat] = useState<Word[]>(storeWords);
+	const [wordsToRepeat, setWordsToRepeat] = useState<Word[]>([]);
 
 	const handleShowTranslation = () => setShowTranslation((prev) => !prev);
 
@@ -50,38 +51,38 @@ export const Repeats = () => {
 							{showTranslation && wordsToRepeat[0].targetWord}
 						</Typography>
 					</Box>
-					{showTranslation ? (
-						<Box className="mb-4 flex gap-4">
-							<Button
-								variant="contained"
-								onClick={() => handleRepeatWord("BAD", wordsToRepeat[0]._id)}
-							>
-								BAD
-							</Button>
-							<Button
-								variant="contained"
-								onClick={() => handleRepeatWord("MEDIUM", wordsToRepeat[0]._id)}
-							>
-								MID
-							</Button>
-							<Button
-								variant="contained"
-								onClick={() => handleRepeatWord("GOOD", wordsToRepeat[0]._id)}
-							>
-								GOOD
-							</Button>
-						</Box>
-					) : (
-						<Box className="mb-4 flex gap-2">
+					<Box className="mb-4 mt-2 flex gap-4">
+						{showTranslation ? (
+							<>
+								<Button
+									variant="contained"
+									onClick={() => handleRepeatWord("BAD", wordsToRepeat[0]._id)}
+								>
+									{texts.bad}
+								</Button>
+								<Button
+									variant="contained"
+									onClick={() => handleRepeatWord("MEDIUM", wordsToRepeat[0]._id)}
+								>
+									{texts.medium}
+								</Button>
+								<Button
+									variant="contained"
+									onClick={() => handleRepeatWord("GOOD", wordsToRepeat[0]._id)}
+								>
+									{texts.good}
+								</Button>
+							</>
+						) : (
 							<Button variant="contained" onClick={handleShowTranslation}>
-								SHOW
+								{texts.repeats.show}
 							</Button>
-						</Box>
-					)}
+						)}
+					</Box>
 					<RepeatedWordInfo word={wordsToRepeat[0]} />
 				</>
 			) : (
-				<Typography>Nothing to repeat</Typography>
+				<Typography>{texts.repeats.nothing}</Typography>
 			)}
 		</>
 	);
