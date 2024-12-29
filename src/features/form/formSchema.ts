@@ -6,6 +6,7 @@ export const wordFormSchema = yup
 		partOfSpeech: yup.string(),
 		sourceLanguage: yup.string(),
 		targetLanguage: yup.string(),
+		// TODO add texts from text.ts
 		sourceWord: yup.string().required("Wpisz słowo"),
 		targetWord: yup.string().required("Wpisz słowo"),
 		notes: yup.string(),
