@@ -35,6 +35,7 @@ export default function Form({ userId }: { userId: string }) {
 			userId: `${userId}`,
 			sourceLanguage: "PL",
 			targetLanguage: "EN",
+			partOfSpeech: "noun",
 			sourceWord: "",
 			targetWord: "",
 			notes: "",
@@ -48,7 +49,9 @@ export default function Form({ userId }: { userId: string }) {
 		if (result.success) {
 			console.log("Word posted successfully:");
 			const newWord = result.data;
-			newWord.word.nextRepeatDate = new Date();
+			const nextDate = new Date();
+			nextDate.setDate(nextDate.getDate() + 1);
+			newWord.word.nextRepeatDate = nextDate;
 			newWord.word.lastRepeatDate = new Date();
 			addWord(newWord.word);
 			reset({
@@ -132,7 +135,7 @@ export default function Form({ userId }: { userId: string }) {
 						name="partOfSpeech"
 						control={control}
 						render={({ field }) => (
-							<Select {...field} className="w-48" displayEmpty value={field.value || "noun"}>
+							<Select {...field} className="w-48">
 								<MenuItem value="noun">{texts.form.noun}</MenuItem>
 								<MenuItem value="pronoun">{texts.form.pronoun}</MenuItem>
 								<MenuItem value="verb">{texts.form.verb}</MenuItem>
