@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 import { useWordStore } from "@/store/wordStore";
 import { useUserStore } from "@/store/userStore";
 import { texts } from "@/constants/texts";
+import { useEffect } from "react";
 
 export const Header = ({ userId }: { userId: string }) => {
 	const { storeWords, getWords } = useWordStore();
@@ -23,9 +24,11 @@ export const Header = ({ userId }: { userId: string }) => {
 		getUserInfo(userId);
 	}
 
-	if (!storeWords.length) {
-		getWords(userId);
-	}
+	useEffect(() => {
+		if (!storeWords.length) {
+			getWords(userId);
+		}
+	}, []);
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
