@@ -1,42 +1,23 @@
 "use client";
 
-import { Word } from "@/models/Word";
 import { useWordStore } from "@/store/wordStore";
-import { updateRepeatedWordInDB } from "@/utils/updateRepeatedWordInDB";
 import { Box, Button, Chip, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RepeatedWordInfo } from "./repeatedWordInfo";
 import { texts } from "@/constants/texts";
 
 export const Repeats = () => {
-	const { storeWords, setStoreWords, getWord, updateWord } = useWordStore();
+	const { getWord, wordsToRepeat, updateWord } = useWordStore();
 
 	const [showTranslation, setShowTranslation] = useState<boolean>(false);
-	const [wordsToRepeat, setWordsToRepeat] = useState<Word[]>([]);
 
 	const handleShowTranslation = () => setShowTranslation((prev) => !prev);
 
 	const handleRepeatWord = (repeatStatus: string, wordID: string) => {
 		const updatedWord = getWord(wordID);
-		updateRepeatedWordInDB(repeatStatus, updatedWord);
 		updateWord(repeatStatus, updatedWord);
 		handleShowTranslation();
-		setWordsToRepeat((prevWords) => prevWords.slice(1));
 	};
-
-	useEffect(() => {
-		if (!wordsToRepeat.length) {
-			const repeatBorderDate = new Date();
-			repeatBorderDate.setDate(repeatBorderDate.getDate() + 1);
-			repeatBorderDate.setHours(2, 0, 0, 0);
-
-			setWordsToRepeat(
-				[...storeWords]
-					.filter((word) => new Date(word.nextRepeatDate) < repeatBorderDate)
-					.sort(() => Math.random() - 0.5),
-			);
-		}
-	}, [storeWords]);
 
 	return (
 		<>
