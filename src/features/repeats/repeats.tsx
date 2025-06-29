@@ -2,7 +2,7 @@
 
 import { useWordStore } from "@/store/wordStore";
 import { Box, Button, Chip, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RepeatedWordInfo } from "./repeatedWordInfo";
 import { texts } from "@/constants/texts";
 
@@ -18,6 +18,29 @@ export const Repeats = () => {
 		updateWord(repeatStatus, updatedWord);
 		handleShowTranslation();
 	};
+
+	useEffect(() => {
+		const handleKeyPress = (event: KeyboardEvent) => {
+			if (event.key === "Enter" && !showTranslation && wordsToRepeat.length > 0) {
+				handleShowTranslation();
+			}
+			if (event.key === "1" && showTranslation) {
+				handleRepeatWord("BAD", wordsToRepeat[0]._id);
+			}
+			if (event.key === "2" && showTranslation) {
+				handleRepeatWord("MEDIUM", wordsToRepeat[0]._id);
+			}
+			if (event.key === "3" && showTranslation) {
+				handleRepeatWord("GOOD", wordsToRepeat[0]._id);
+			}
+		};
+
+		window.addEventListener("keydown", handleKeyPress);
+
+		return () => {
+			window.removeEventListener("keydown", handleKeyPress);
+		};
+	}, [showTranslation, wordsToRepeat.length]);
 
 	return (
 		<>
@@ -36,26 +59,73 @@ export const Repeats = () => {
 						{showTranslation ? (
 							<>
 								<Button
+									className="relative w-24"
 									variant="contained"
 									onClick={() => handleRepeatWord("BAD", wordsToRepeat[0]._id)}
+									sx={{
+										"&::before": {
+											content: '"1"', // Note the double quotes inside
+											marginRight: 1,
+											fontSize: "0.7em",
+											position: "absolute",
+											bottom: 0,
+											right: 0,
+										},
+									}}
 								>
 									{texts.bad}
 								</Button>
 								<Button
+									className="relative w-24"
 									variant="contained"
 									onClick={() => handleRepeatWord("MEDIUM", wordsToRepeat[0]._id)}
+									sx={{
+										"&::before": {
+											content: '"2"', // Note the double quotes inside
+											marginRight: 1,
+											fontSize: "0.7em",
+											position: "absolute",
+											bottom: 0,
+											right: 0,
+										},
+									}}
 								>
 									{texts.medium}
 								</Button>
 								<Button
+									className="relative w-24"
 									variant="contained"
 									onClick={() => handleRepeatWord("GOOD", wordsToRepeat[0]._id)}
+									sx={{
+										"&::before": {
+											content: '"3"', // Note the double quotes inside
+											marginRight: 1,
+											fontSize: "0.7em",
+											position: "absolute",
+											bottom: 0,
+											right: 0,
+										},
+									}}
 								>
 									{texts.good}
 								</Button>
 							</>
 						) : (
-							<Button variant="contained" onClick={handleShowTranslation}>
+							<Button
+								className="relative w-24"
+								variant="contained"
+								onClick={handleShowTranslation}
+								sx={{
+									"&::before": {
+										content: '"⏎"', // Note the double quotes inside
+										marginRight: 1,
+										fontSize: "0.7em",
+										position: "absolute",
+										bottom: 0,
+										right: 0,
+									},
+								}}
+							>
 								{texts.repeats.show}
 							</Button>
 						)}
