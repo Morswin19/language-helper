@@ -64,7 +64,7 @@ export const Repeats = () => {
 									onClick={() => handleRepeatWord("BAD", wordsToRepeat[0]._id)}
 									sx={{
 										"&::before": {
-											content: '"1"', // Note the double quotes inside
+											content: '"1"',
 											marginRight: 1,
 											fontSize: "0.7em",
 											position: "absolute",
@@ -81,7 +81,7 @@ export const Repeats = () => {
 									onClick={() => handleRepeatWord("MEDIUM", wordsToRepeat[0]._id)}
 									sx={{
 										"&::before": {
-											content: '"2"', // Note the double quotes inside
+											content: '"2"',
 											marginRight: 1,
 											fontSize: "0.7em",
 											position: "absolute",
@@ -98,7 +98,7 @@ export const Repeats = () => {
 									onClick={() => handleRepeatWord("GOOD", wordsToRepeat[0]._id)}
 									sx={{
 										"&::before": {
-											content: '"3"', // Note the double quotes inside
+											content: '"3"',
 											marginRight: 1,
 											fontSize: "0.7em",
 											position: "absolute",
@@ -117,7 +117,7 @@ export const Repeats = () => {
 								onClick={handleShowTranslation}
 								sx={{
 									"&::before": {
-										content: '"⏎"', // Note the double quotes inside
+										content: '"⏎"',
 										marginRight: 1,
 										fontSize: "0.7em",
 										position: "absolute",
