@@ -63,13 +63,14 @@ export const Repeats = () => {
 									variant="contained"
 									onClick={() => handleRepeatWord("BAD", wordsToRepeat[0]._id)}
 									sx={{
-										"&::before": {
+										"&::after": {
 											content: '"1"',
 											marginRight: 1,
 											fontSize: "0.7em",
 											position: "absolute",
 											bottom: 0,
 											right: 0,
+											display: { xs: "none", md: "block" },
 										},
 									}}
 								>
@@ -80,13 +81,14 @@ export const Repeats = () => {
 									variant="contained"
 									onClick={() => handleRepeatWord("MEDIUM", wordsToRepeat[0]._id)}
 									sx={{
-										"&::before": {
+										"&::after": {
 											content: '"2"',
 											marginRight: 1,
 											fontSize: "0.7em",
 											position: "absolute",
 											bottom: 0,
 											right: 0,
+											display: { xs: "none", md: "block" },
 										},
 									}}
 								>
@@ -97,13 +99,14 @@ export const Repeats = () => {
 									variant="contained"
 									onClick={() => handleRepeatWord("GOOD", wordsToRepeat[0]._id)}
 									sx={{
-										"&::before": {
+										"&::after": {
 											content: '"3"',
 											marginRight: 1,
 											fontSize: "0.7em",
 											position: "absolute",
 											bottom: 0,
 											right: 0,
+											display: { xs: "none", md: "block" },
 										},
 									}}
 								>
@@ -116,13 +119,14 @@ export const Repeats = () => {
 								variant="contained"
 								onClick={handleShowTranslation}
 								sx={{
-									"&::before": {
+									"&::after": {
 										content: '"⏎"',
 										marginRight: 1,
 										fontSize: "0.7em",
 										position: "absolute",
 										bottom: 0,
 										right: 0,
+										display: { xs: "none", md: "block" },
 									},
 								}}
 							>
