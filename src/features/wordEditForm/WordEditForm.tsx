@@ -2,28 +2,25 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { wordEditSchema } from "@/features/wordEditForm/wordEditSchema";
 import { useForm, Controller } from "react-hook-form";
 import { useWordStore } from "@/store/wordStore";
-import {
-	Box,
-	Button,
-	FormControlLabel,
-	MenuItem,
-	Radio,
-	RadioGroup,
-	Select,
-	TextareaAutosize,
-	TextField,
-	Typography,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import Select from "@mui/material/Select";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import { texts } from "@/constants/texts";
-import { WordEditFormData } from "@/types/addWordFormData";
+import { UpdatedWord, WordData } from "@/types/addWordFormData";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import * as React from "react";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Word } from "@/models/Word";
 
-export default function WordEditForm({ word }: { word: Word }) {
+export default function WordEditForm({ word }: { word: WordData }) {
 	const { updateEditedWord } = useWordStore();
 	const {
 		control,
@@ -47,21 +44,13 @@ export default function WordEditForm({ word }: { word: Word }) {
 		},
 	});
 
-	const onSubmit = async (data: WordEditFormData) => {
-		// console.log(data);
-
-		const updatedWord: WordEditFormData = {
-			...word, // Keep all existing word properties
-			...data, // Override with form data
-			// Handle any specific transformations if needed
-			nextRepeatDate: data.nextRepeatDate || word.nextRepeatDate,
+	const onSubmit = async (data: UpdatedWord) => {
+		const updatedWord: WordData = {
+			...word,
+			...data,
 		};
 
-		console.log(updatedWord);
-
 		updateEditedWord(updatedWord);
-
-		console.log("update word");
 	};
 
 	return (

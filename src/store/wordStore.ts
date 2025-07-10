@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { Word } from "../models/Word";
 import { getNextRepeatDate } from "../utils/getNextRepeatDate";
 import { getUserWords } from "../services/getUserWords";
-import { UpdatedWord } from "@/types/addWordFormData";
+import { UpdatedWord, WordData } from "@/types/addWordFormData";
 import { patchWord } from "@/services/patchWord";
 
 interface WordStore {
@@ -12,7 +12,7 @@ interface WordStore {
 	getWords: (userId: string) => Promise<void>;
 	getWord: (wordId: string) => Word;
 	updateRepeatedWord: (repeatStatus: string, updatedWord: Word) => Promise<void>;
-	updateEditedWord: (updatedWord: Word) => Promise<void>;
+	updateEditedWord: (updatedWord: WordData) => Promise<void>;
 	addWord: (word: Word) => void;
 }
 
@@ -83,7 +83,7 @@ export const useWordStore = create<WordStore>((set, get) => ({
 			console.log("error when updating word", error);
 		}
 	},
-	updateEditedWord: async (updatedWord: Word) => {
+	updateEditedWord: async (updatedWord: WordData) => {
 		const { success, word, error } = await patchWord(updatedWord._id, updatedWord);
 
 		if (success && word) {

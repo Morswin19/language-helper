@@ -4,7 +4,6 @@ import { texts } from "@/constants/texts";
 import { Word } from "@/models/Word";
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import WordEditForm from "@/features/wordEditForm/WordEditForm";
 
@@ -65,7 +64,6 @@ export const RepeatedWordAdditionalSettings = ({ word }: { word: Word }) => {
 				dialogActiveWord={dialogActiveWord}
 				dialogActiveWordID={dialogActiveWordID}
 			/>
-			<Button onClick={toggleDrawer(true)}>Open drawer</Button>
 			<Drawer anchor="right" open={openDrawer} onClose={toggleDrawer(false)}>
 				<WordEditForm word={word} />
 			</Drawer>

@@ -8,21 +8,6 @@ export type WordFormData = {
 	targetWord: string;
 };
 
-export type WordEditFormData = {
-	sourceWord: string;
-	targetWord: string;
-	sourceLanguage: string;
-	targetLanguage: string;
-	partOfSpeech: string;
-	notes?: string;
-	numberOfRepeats?: number;
-	numberOfGoodRepeats?: number;
-	numberOfMediumRepeats?: number;
-	numberOfBadRepeats?: number;
-	goodRepeatsInRow?: number;
-	nextRepeatDate?: Date | null;
-};
-
 export type WordRow = {
 	id: string;
 	sourceWord: string;
@@ -40,6 +25,24 @@ export type WordRow = {
 	nextRepeatDate: Date;
 	notes: string;
 };
+
+export interface WordData {
+	_id: string;
+	userId: string;
+	sourceLanguage: string;
+	targetLanguage: string;
+	sourceWord: string;
+	targetWord: string;
+	partOfSpeech: string;
+	numberOfRepeats: number;
+	numberOfBadRepeats: number;
+	numberOfMediumRepeats: number;
+	numberOfGoodRepeats: number;
+	goodRepeatsInRow: number;
+	lastRepeatDate: Date;
+	nextRepeatDate: Date;
+	notes: string;
+}
 
 export type UpdatedWord = {
 	sourceWord?: string;

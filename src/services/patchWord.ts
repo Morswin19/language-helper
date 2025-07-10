@@ -21,7 +21,7 @@ export const patchWord = async (
 		}
 
 		const data = await response.json();
-		console.log("Word updated successfully:", data);
+		console.log("Word updated successfully:");
 		return { success: true, word: data.word };
 	} catch (error) {
 		return {
