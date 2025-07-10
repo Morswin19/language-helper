@@ -3,7 +3,7 @@ import { Word } from "../models/Word";
 import { getNextRepeatDate } from "../utils/getNextRepeatDate";
 import { getUserWords } from "../services/getUserWords";
 import { UpdatedWord } from "@/types/addWordFormData";
-import { patchRepeatedWord } from "@/services/patchRepeatedWord";
+import { patchWord } from "@/services/patchWord";
 
 interface WordStore {
 	storeWords: Word[];
@@ -11,7 +11,8 @@ interface WordStore {
 	wordsToRepeat: Word[];
 	getWords: (userId: string) => Promise<void>;
 	getWord: (wordId: string) => Word;
-	updateWord: (repeatStatus: string, updatedWord: Word) => Promise<void>;
+	updateRepeatedWord: (repeatStatus: string, updatedWord: Word) => Promise<void>;
+	updateEditedWord: (updatedWord: Word) => Promise<void>;
 	addWord: (word: Word) => void;
 }
 
@@ -35,7 +36,7 @@ export const useWordStore = create<WordStore>((set, get) => ({
 		}
 	},
 	getWord: (wordId) => get().storeWords.filter((word) => word._id === wordId)[0],
-	updateWord: async (repeatStatus: string, updatedWord: Word) => {
+	updateRepeatedWord: async (repeatStatus: string, updatedWord: Word) => {
 		const newWord: UpdatedWord = {
 			lastRepeatDate: new Date(),
 			numberOfRepeats: updatedWord.numberOfRepeats + 1,
@@ -64,17 +65,49 @@ export const useWordStore = create<WordStore>((set, get) => ({
 			),
 		};
 
-		const { success, word, error } = await patchRepeatedWord(updatedWord._id, newWord);
+		const { success, word, error } = await patchWord(updatedWord._id, newWord);
 
-		set((state) => ({
-			storeWords: state.storeWords.map((storeWord) => {
-				if (storeWord._id === updatedWord._id && word) {
-					return word;
-				}
-				return storeWord;
-			}),
-			wordsToRepeat: state.wordsToRepeat.slice(1),
-		}));
+		if (success) {
+			set((state) => ({
+				storeWords: state.storeWords.map((storeWord) => {
+					if (storeWord._id === updatedWord._id && word) {
+						return word;
+					}
+					return storeWord;
+				}),
+				wordsToRepeat: state.wordsToRepeat.slice(1),
+			}));
+		}
+
+		if (error) {
+			console.log("error when updating word", error);
+		}
+	},
+	updateEditedWord: async (updatedWord: Word) => {
+		const { success, word, error } = await patchWord(updatedWord._id, updatedWord);
+
+		if (success && word) {
+			// Update the store with the response from backend
+			set((state) => ({
+				storeWords: state.storeWords.map((storeWord) => {
+					if (storeWord._id === updatedWord._id) {
+						return word;
+					}
+					return storeWord;
+				}),
+				// Also update wordsToRepeat if the word exists there
+				wordsToRepeat: state.wordsToRepeat.map((repeatWord) => {
+					if (repeatWord._id === updatedWord._id) {
+						return word;
+					}
+					return repeatWord;
+				}),
+			}));
+		}
+
+		if (error) {
+			console.log("error when updating word", error);
+		}
 	},
 	addWord: (word) => {
 		set((state) => ({

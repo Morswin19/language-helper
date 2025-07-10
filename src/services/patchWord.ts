@@ -1,7 +1,7 @@
 import { Word } from "../models/Word";
 import { UpdatedWord } from "../types/addWordFormData";
 
-export const patchRepeatedWord = async (
+export const patchWord = async (
 	wordID: string,
 	updatedData: UpdatedWord,
 ): Promise<{ success: boolean; word?: Word; error?: string }> => {

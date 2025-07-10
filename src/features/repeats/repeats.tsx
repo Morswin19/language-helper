@@ -1,13 +1,17 @@
 "use client";
 
 import { useWordStore } from "@/store/wordStore";
-import { Box, Button, Chip, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
+import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { RepeatedWordInfo } from "./repeatedWordInfo";
 import { texts } from "@/constants/texts";
+import { KeyboardButton } from "@/components/keyboardButton";
+import { RepeatedWordAdditionalSettings } from "@/features/repeats/repeatedWordAdditionalSettings";
 
 export const Repeats = () => {
-	const { getWord, wordsToRepeat, updateWord } = useWordStore();
+	const { getWord, wordsToRepeat, updateRepeatedWord } = useWordStore();
 
 	const [showTranslation, setShowTranslation] = useState<boolean>(false);
 
@@ -15,7 +19,7 @@ export const Repeats = () => {
 
 	const handleRepeatWord = (repeatStatus: string, wordID: string) => {
 		const updatedWord = getWord(wordID);
-		updateWord(repeatStatus, updatedWord);
+		updateRepeatedWord(repeatStatus, updatedWord);
 		handleShowTranslation();
 	};
 
@@ -58,83 +62,32 @@ export const Repeats = () => {
 					<Box className="mb-4 mt-2 flex gap-4">
 						{showTranslation ? (
 							<>
-								<Button
-									className="relative w-24"
-									variant="contained"
+								<KeyboardButton
+									text={texts.bad}
+									keyboardKey="1"
 									onClick={() => handleRepeatWord("BAD", wordsToRepeat[0]._id)}
-									sx={{
-										"&::after": {
-											content: '"1"',
-											marginRight: 1,
-											fontSize: "0.7em",
-											position: "absolute",
-											bottom: 0,
-											right: 0,
-											display: { xs: "none", md: "block" },
-										},
-									}}
-								>
-									{texts.bad}
-								</Button>
-								<Button
-									className="relative w-24"
-									variant="contained"
+								/>
+								<KeyboardButton
+									text={texts.medium}
+									keyboardKey="2"
 									onClick={() => handleRepeatWord("MEDIUM", wordsToRepeat[0]._id)}
-									sx={{
-										"&::after": {
-											content: '"2"',
-											marginRight: 1,
-											fontSize: "0.7em",
-											position: "absolute",
-											bottom: 0,
-											right: 0,
-											display: { xs: "none", md: "block" },
-										},
-									}}
-								>
-									{texts.medium}
-								</Button>
-								<Button
-									className="relative w-24"
-									variant="contained"
+								/>
+								<KeyboardButton
+									text={texts.good}
+									keyboardKey="3"
 									onClick={() => handleRepeatWord("GOOD", wordsToRepeat[0]._id)}
-									sx={{
-										"&::after": {
-											content: '"3"',
-											marginRight: 1,
-											fontSize: "0.7em",
-											position: "absolute",
-											bottom: 0,
-											right: 0,
-											display: { xs: "none", md: "block" },
-										},
-									}}
-								>
-									{texts.good}
-								</Button>
+								/>
 							</>
 						) : (
-							<Button
-								className="relative w-24"
-								variant="contained"
+							<KeyboardButton
+								text={texts.repeats.show}
+								keyboardKey="⏎"
 								onClick={handleShowTranslation}
-								sx={{
-									"&::after": {
-										content: '"⏎"',
-										marginRight: 1,
-										fontSize: "0.7em",
-										position: "absolute",
-										bottom: 0,
-										right: 0,
-										display: { xs: "none", md: "block" },
-									},
-								}}
-							>
-								{texts.repeats.show}
-							</Button>
+							/>
 						)}
 					</Box>
 					<RepeatedWordInfo word={wordsToRepeat[0]} />
+					{showTranslation && <RepeatedWordAdditionalSettings word={wordsToRepeat[0]} />}
 				</>
 			) : (
 				<Typography>{texts.repeats.nothing}</Typography>

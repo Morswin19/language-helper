@@ -6,7 +6,7 @@ import { useWordStore } from "@/store/wordStore";
 import { WordRow } from "@/types/addWordFormData";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useState } from "react";
-import DeleteWordDialog from "./deleteWordDialog";
+import DeleteWordDialog from "../../components/deleteWordDialog";
 import { texts } from "@/constants/texts";
 
 const paginationModel = { page: 0, pageSize: 100 };
