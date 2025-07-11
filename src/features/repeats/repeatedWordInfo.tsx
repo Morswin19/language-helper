@@ -5,6 +5,8 @@ import React from "react";
 import { texts } from "@/constants/texts";
 
 export const RepeatedWordInfo = ({ word }: { word: Word }) => {
+	const showWordRepeatsPercent = word.numberOfRepeats && word.numberOfGoodRepeats > 0;
+
 	return (
 		<>
 			<Box className="flex w-full gap-2">
@@ -48,7 +50,7 @@ export const RepeatedWordInfo = ({ word }: { word: Word }) => {
 					{texts.percent}:
 				</Typography>
 				<Typography>
-					{word.numberOfRepeats
+					{showWordRepeatsPercent
 						? Math.ceil(
 								(word.numberOfGoodRepeats * 100) /
 									(word.numberOfBadRepeats + word.numberOfGoodRepeats),

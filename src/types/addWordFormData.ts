@@ -26,6 +26,24 @@ export type WordRow = {
 	notes: string;
 };
 
+export interface WordData {
+	_id: string;
+	userId: string;
+	sourceLanguage: string;
+	targetLanguage: string;
+	sourceWord: string;
+	targetWord: string;
+	partOfSpeech: string;
+	numberOfRepeats: number;
+	numberOfBadRepeats: number;
+	numberOfMediumRepeats: number;
+	numberOfGoodRepeats: number;
+	goodRepeatsInRow: number;
+	lastRepeatDate: Date;
+	nextRepeatDate: Date;
+	notes: string;
+}
+
 export type UpdatedWord = {
 	sourceWord?: string;
 	targetWord?: string;
