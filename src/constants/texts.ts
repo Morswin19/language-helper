@@ -16,7 +16,9 @@ export const texts = {
 	},
 	form: {
 		sourcePlaceholder: "Add word",
+		editSourcePlaceholder: "Edit word",
 		targetPlaceholder: "Add translation",
+		editTargetPlaceholder: "Edit translation",
 		noun: "Noun",
 		verb: "Verb",
 		adverb: "Adverb",
@@ -25,6 +27,12 @@ export const texts = {
 		sentence: "Sentence",
 		submit: "submit",
 		notesPlaceholder: "Enter your notes here...",
+		numberOfRepeatsPlaceholder: "Edit number of repeats",
+		numberOfGoodRepeatsPlaceholder: "Edit number of good repeats",
+		numberOfMediumRepeatsPlaceholder: "Edit number of medium repeats",
+		numberOfBadRepeatsPlaceholder: "Edit number of bad repeats",
+		goodRepeatsInRowPlaceholder: "Edit good repeats in row",
+		nextRepeatDatePlaceholder: "Choose next repeat date",
 	},
 	repeats: {
 		title: "repeats",
@@ -47,6 +55,7 @@ export const texts = {
 		targetLang: "target language",
 		next: "next repeat",
 		notes: "notes",
-		delete: "delete",
+		delete: "remove",
+		edit: "edit",
 	},
 };
