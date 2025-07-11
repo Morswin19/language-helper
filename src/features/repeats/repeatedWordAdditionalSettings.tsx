@@ -7,15 +7,20 @@ import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import WordEditForm from "@/features/wordEditForm/WordEditForm";
 
-export const RepeatedWordAdditionalSettings = ({ word }: { word: Word }) => {
+interface RepeatedWordAdditionalSettingsProps {
+	word: Word;
+	openDrawer: boolean;
+	setOpenDrawer: (open: boolean) => void;
+}
+
+export const RepeatedWordAdditionalSettings = ({
+	word,
+	openDrawer,
+	setOpenDrawer,
+}: RepeatedWordAdditionalSettingsProps) => {
 	const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 	const [dialogActiveWord, setDialogActiveWord] = useState("");
 	const [dialogActiveWordID, setDialogActiveWordID] = useState("");
-	const [openDrawer, setOpenDrawer] = useState(false);
-
-	const toggleDrawer = (newOpen: boolean) => () => {
-		setOpenDrawer(newOpen);
-	};
 
 	const handleEditWordClick = () => {
 		setOpenDrawer(true);
@@ -28,6 +33,8 @@ export const RepeatedWordAdditionalSettings = ({ word }: { word: Word }) => {
 	};
 
 	useEffect(() => {
+		if (openDrawer) return;
+
 		const handleKeyPress = (event: KeyboardEvent) => {
 			if (event.key === "E" || event.key === "e") {
 				handleEditWordClick();
@@ -42,7 +49,7 @@ export const RepeatedWordAdditionalSettings = ({ word }: { word: Word }) => {
 		return () => {
 			window.removeEventListener("keydown", handleKeyPress);
 		};
-	}, []);
+	}, [openDrawer]);
 
 	return (
 		<>
@@ -64,7 +71,7 @@ export const RepeatedWordAdditionalSettings = ({ word }: { word: Word }) => {
 				dialogActiveWord={dialogActiveWord}
 				dialogActiveWordID={dialogActiveWordID}
 			/>
-			<Drawer anchor="right" open={openDrawer} onClose={toggleDrawer(false)}>
+			<Drawer anchor="right" open={openDrawer} onClose={() => setOpenDrawer(false)}>
 				<WordEditForm word={word} />
 			</Drawer>
 		</>

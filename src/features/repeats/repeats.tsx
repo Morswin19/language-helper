@@ -12,6 +12,7 @@ import { RepeatedWordAdditionalSettings } from "@/features/repeats/repeatedWordA
 
 export const Repeats = () => {
 	const { getWord, wordsToRepeat, updateRepeatedWord } = useWordStore();
+	const [openDrawer, setOpenDrawer] = useState(false);
 
 	const [showTranslation, setShowTranslation] = useState<boolean>(false);
 
@@ -24,6 +25,7 @@ export const Repeats = () => {
 	};
 
 	useEffect(() => {
+		if (openDrawer) return;
 		const handleKeyPress = (event: KeyboardEvent) => {
 			if (event.key === "Enter" && !showTranslation && wordsToRepeat.length > 0) {
 				handleShowTranslation();
@@ -44,7 +46,7 @@ export const Repeats = () => {
 		return () => {
 			window.removeEventListener("keydown", handleKeyPress);
 		};
-	}, [showTranslation, wordsToRepeat.length]);
+	}, [showTranslation, wordsToRepeat.length, openDrawer]);
 
 	return (
 		<>
@@ -87,7 +89,13 @@ export const Repeats = () => {
 						)}
 					</Box>
 					<RepeatedWordInfo word={wordsToRepeat[0]} />
-					{showTranslation && <RepeatedWordAdditionalSettings word={wordsToRepeat[0]} />}
+					{showTranslation && (
+						<RepeatedWordAdditionalSettings
+							word={wordsToRepeat[0]}
+							openDrawer={openDrawer}
+							setOpenDrawer={setOpenDrawer}
+						/>
+					)}
 				</>
 			) : (
 				<Typography>{texts.repeats.nothing}</Typography>
