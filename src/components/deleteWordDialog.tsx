@@ -52,8 +52,8 @@ export default function DeleteWordDialog({
 		>
 			<DialogTitle id="alert-dialog-title">{texts.words.remove}</DialogTitle>
 			<DialogContent>
-				<DialogContentText id="alert-dialog-description">
-					<Typography variant="h2" className="text-center">
+				<DialogContentText id="alert-dialog-description" className="text-center">
+					<Typography variant="h2" component="span">
 						{dialogActiveWord}
 					</Typography>
 				</DialogContentText>
