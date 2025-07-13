@@ -9,6 +9,7 @@ interface WordStore {
 	storeWords: Word[];
 	setStoreWords: (words: Word[]) => void;
 	wordsToRepeat: Word[];
+	setWordsToRepeat: (words: Word[]) => void;
 	getWords: (userId: string) => Promise<void>;
 	getWord: (wordId: string) => Word;
 	updateRepeatedWord: (repeatStatus: string, updatedWord: Word) => Promise<void>;
@@ -20,6 +21,7 @@ export const useWordStore = create<WordStore>((set, get) => ({
 	storeWords: [],
 	wordsToRepeat: [],
 	setStoreWords: (storeWords) => set({ storeWords }),
+	setWordsToRepeat: (wordsToRepeat) => set({ wordsToRepeat }),
 	getWords: async (userId: string) => {
 		const response = await getUserWords(userId);
 		const repeatBorderDate = new Date();
@@ -41,7 +43,9 @@ export const useWordStore = create<WordStore>((set, get) => ({
 			lastRepeatDate: new Date(),
 			numberOfRepeats: updatedWord.numberOfRepeats + 1,
 			goodRepeatsInRow:
-				repeatStatus === "GOOD" ? updatedWord.goodRepeatsInRow + 1 : updatedWord.goodRepeatsInRow,
+				repeatStatus === "GOOD"
+					? updatedWord.goodRepeatsInRow + 1
+					: (updatedWord.goodRepeatsInRow = 0),
 			numberOfBadRepeats:
 				repeatStatus === "BAD"
 					? updatedWord.numberOfBadRepeats + 1
@@ -55,13 +59,7 @@ export const useWordStore = create<WordStore>((set, get) => ({
 					? updatedWord.numberOfGoodRepeats + 1
 					: updatedWord.numberOfGoodRepeats,
 			nextRepeatDate: getNextRepeatDate(
-				updatedWord.numberOfRepeats + 1,
-				repeatStatus === "GOOD"
-					? updatedWord.numberOfGoodRepeats + 1
-					: updatedWord.numberOfGoodRepeats,
-				repeatStatus === "BAD"
-					? updatedWord.numberOfBadRepeats + 1
-					: updatedWord.numberOfBadRepeats,
+				repeatStatus === "GOOD" ? updatedWord.goodRepeatsInRow + 1 : 0,
 			),
 		};
 
