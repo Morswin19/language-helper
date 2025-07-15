@@ -20,7 +20,13 @@ import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-export default function WordEditForm({ word }: { word: WordData }) {
+export default function WordEditForm({
+	word,
+	setOpenDrawer,
+}: {
+	word: WordData;
+	setOpenDrawer: (open: boolean) => void;
+}) {
 	const { updateEditedWord } = useWordStore();
 	const {
 		control,
@@ -51,6 +57,7 @@ export default function WordEditForm({ word }: { word: WordData }) {
 		};
 
 		updateEditedWord(updatedWord);
+		setOpenDrawer(false);
 	};
 
 	return (

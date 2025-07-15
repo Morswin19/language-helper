@@ -158,7 +158,7 @@ export default function WordsGrid() {
 				dialogActiveWordID={dialogActiveWordID}
 			/>
 			<Drawer anchor="right" open={openDrawer} onClose={() => setOpenDrawer(false)}>
-				{editActiveWord && <WordEditForm word={editActiveWord} />}
+				{editActiveWord && <WordEditForm word={editActiveWord} setOpenDrawer={setOpenDrawer} />}
 			</Drawer>
 		</>
 	);
