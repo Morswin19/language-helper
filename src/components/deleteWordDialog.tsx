@@ -24,7 +24,7 @@ export default function DeleteWordDialog({
 	dialogActiveWord,
 	dialogActiveWordID,
 }: DeleteWordDialogProps) {
-	const { storeWords, setStoreWords } = useWordStore();
+	const { storeWords, setStoreWords, wordsToRepeat, setWordsToRepeat } = useWordStore();
 
 	const handleDeleteDialogExitClick = () => {
 		setDeleteDialogOpen(false);
@@ -35,7 +35,10 @@ export default function DeleteWordDialog({
 			.then(() => {
 				setDeleteDialogOpen(false);
 				const updatedWords = storeWords.filter((word) => word._id !== wordID);
+				const updatedWordsToRepeat = wordsToRepeat.filter((word) => word._id !== wordID);
+
 				setStoreWords(updatedWords);
+				setWordsToRepeat(updatedWordsToRepeat);
 			})
 			.catch((error) => console.error(error));
 	};
@@ -49,8 +52,8 @@ export default function DeleteWordDialog({
 		>
 			<DialogTitle id="alert-dialog-title">{texts.words.remove}</DialogTitle>
 			<DialogContent>
-				<DialogContentText id="alert-dialog-description">
-					<Typography variant="h2" className="text-center">
+				<DialogContentText id="alert-dialog-description" className="text-center">
+					<Typography variant="h2" component="span">
 						{dialogActiveWord}
 					</Typography>
 				</DialogContentText>
