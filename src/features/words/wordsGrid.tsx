@@ -148,7 +148,6 @@ export default function WordsGrid() {
 					rows={rows}
 					columns={columns}
 					initialState={{ pagination: { paginationModel } }}
-					checkboxSelection
 					sx={{ border: 0 }}
 				/>
 			</Box>
