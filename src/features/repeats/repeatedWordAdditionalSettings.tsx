@@ -72,7 +72,7 @@ export const RepeatedWordAdditionalSettings = ({
 				dialogActiveWordID={dialogActiveWordID}
 			/>
 			<Drawer anchor="right" open={openDrawer} onClose={() => setOpenDrawer(false)}>
-				<WordEditForm word={word} />
+				<WordEditForm word={word} setOpenDrawer={setOpenDrawer} />
 			</Drawer>
 		</>
 	);
