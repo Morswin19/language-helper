@@ -21,7 +21,7 @@ export type WordRow = {
 	numberOfGoodRepeats: number;
 	streak: number;
 	percentOfGoodRepeats: number;
-	lastRepeatDate: Date;
+	lastRepeatDate: Date | null;
 	nextRepeatDate: Date;
 	notes: string;
 };
@@ -39,7 +39,7 @@ export interface WordData {
 	numberOfMediumRepeats: number;
 	numberOfGoodRepeats: number;
 	goodRepeatsInRow: number;
-	lastRepeatDate: Date;
+	lastRepeatDate: Date | null;
 	nextRepeatDate: Date;
 	notes: string;
 }
@@ -55,7 +55,7 @@ export type UpdatedWord = {
 	numberOfMediumRepeats?: number;
 	numberOfGoodRepeats?: number;
 	goodRepeatsInRow?: number;
-	lastRepeatDate?: Date;
+	lastRepeatDate?: Date | null;
 	nextRepeatDate?: Date;
 	notes?: string;
 };

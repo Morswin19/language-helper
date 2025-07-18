@@ -134,7 +134,7 @@ export default function WordsGrid() {
 			percentOfGoodRepeats: word.numberOfRepeats
 				? Math.ceil((word.numberOfGoodRepeats * 100) / word.numberOfRepeats)
 				: 0,
-			lastRepeatDate: new Date(word.lastRepeatDate),
+			lastRepeatDate: !!word.lastRepeatDate ? new Date(word.lastRepeatDate) : null,
 			nextRepeatDate: new Date(word.nextRepeatDate),
 			partOfSpeech: word.partOfSpeech,
 			notes: word.notes,
