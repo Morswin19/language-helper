@@ -52,7 +52,7 @@ export default function Form({ userId }: { userId: string }) {
 			const nextDate = new Date();
 			nextDate.setDate(nextDate.getDate() + 1);
 			newWord.word.nextRepeatDate = nextDate;
-			newWord.word.lastRepeatDate = new Date();
+			newWord.word.lastRepeatDate = null;
 			addWord(newWord.word);
 			reset({
 				sourceWord: "",

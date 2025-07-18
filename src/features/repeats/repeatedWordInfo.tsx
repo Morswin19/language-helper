@@ -43,7 +43,11 @@ export const RepeatedWordInfo = ({ word }: { word: Word }) => {
 				<Typography align="right" className="w-1/2">
 					{texts.last}:
 				</Typography>
-				<Typography>{String(new Date(word.lastRepeatDate).toLocaleDateString("en-GB"))}</Typography>
+				<Typography>
+					{String(
+						!!word.lastRepeatDate ? new Date(word.lastRepeatDate).toLocaleDateString("en-GB") : "-",
+					)}
+				</Typography>
 			</Box>
 			<Box className="flex w-full gap-2">
 				<Typography align="right" className="w-1/2">
