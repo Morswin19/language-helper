@@ -1,5 +1,6 @@
 import { texts } from "@/constants/texts";
 import { deleteWord } from "@/services/deleteWord";
+import { useNotificationStore } from "@/store/notificationStore";
 import { useWordStore } from "@/store/wordStore";
 import {
 	Button,
@@ -25,6 +26,7 @@ export default function DeleteWordDialog({
 	dialogActiveWordID,
 }: DeleteWordDialogProps) {
 	const { storeWords, setStoreWords, wordsToRepeat, setWordsToRepeat } = useWordStore();
+	const { showSuccess, showError } = useNotificationStore();
 
 	const handleDeleteDialogExitClick = () => {
 		setDeleteDialogOpen(false);
@@ -39,8 +41,9 @@ export default function DeleteWordDialog({
 
 				setStoreWords(updatedWords);
 				setWordsToRepeat(updatedWordsToRepeat);
+				showSuccess(`Word "${dialogActiveWord}" deleted successfully!`);
 			})
-			.catch((error) => console.error(error));
+			.catch((error) => showError(error));
 	};
 
 	return (

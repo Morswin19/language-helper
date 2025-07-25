@@ -22,6 +22,7 @@ import { wordFormSchema } from "@/features/form/formSchema";
 import { useWordStore } from "@/store/wordStore";
 
 import { texts } from "@/constants/texts";
+import { useNotificationStore } from "@/store/notificationStore";
 
 export default function Form({ userId }: { userId: string }) {
 	const {
@@ -43,11 +44,11 @@ export default function Form({ userId }: { userId: string }) {
 	});
 
 	const { addWord } = useWordStore();
+	const { showSuccess, showError } = useNotificationStore();
 
 	const onSubmit = async (data: WordFormData) => {
 		const result = await postWord(data);
 		if (result.success) {
-			console.log("Word posted successfully:");
 			const newWord = result.data;
 			const nextDate = new Date();
 			nextDate.setDate(nextDate.getDate() + 1);
@@ -60,14 +61,16 @@ export default function Form({ userId }: { userId: string }) {
 				notes: "",
 				userId: `${userId}`,
 			});
+			showSuccess(`Word "${data.sourceWord}" → "${data.targetWord}" added successfully!`);
 		} else {
 			console.error("Failed to post word:", result.error);
+			showError(`Failed to add word: ${result.error || "Unknown error"}`);
 		}
 	};
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<Box className="flex flex-col gap-4">
+			<Box className="m-auto flex max-w-lg flex-col gap-4">
 				<Box>
 					<Typography>{texts.source}</Typography>
 					<Controller

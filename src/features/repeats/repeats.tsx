@@ -9,18 +9,41 @@ import { RepeatedWordInfo } from "./repeatedWordInfo";
 import { texts } from "@/constants/texts";
 import { KeyboardButton } from "@/components/keyboardButton";
 import { RepeatedWordAdditionalSettings } from "@/features/repeats/repeatedWordAdditionalSettings";
+import { useNotificationStore } from "@/store/notificationStore";
+import { patchWord } from "@/services/patchWord";
+import { getWordAfterRepeat } from "@/utils/getWordAfterRepeat";
 
 export const Repeats = () => {
 	const { getWord, wordsToRepeat, updateRepeatedWord } = useWordStore();
+	const { showError } = useNotificationStore();
+
 	const [openDrawer, setOpenDrawer] = useState(false);
 
 	const [showTranslation, setShowTranslation] = useState<boolean>(false);
 
 	const handleShowTranslation = () => setShowTranslation((prev) => !prev);
 
-	const handleRepeatWord = (repeatStatus: string, wordID: string) => {
-		const updatedWord = getWord(wordID);
-		updateRepeatedWord(repeatStatus, updatedWord);
+	const handleRepeatWord = async (repeatStatus: string, wordID: string) => {
+		try {
+			const updatedWord = getWord(wordID);
+
+			const newWord = getWordAfterRepeat(repeatStatus, updatedWord);
+
+			const { success, word, error } = await patchWord(updatedWord._id, newWord);
+
+			if (success && word) {
+				updateRepeatedWord(repeatStatus, word);
+			}
+
+			if (error) {
+				console.log("error when updating word", error);
+				showError("Error updating word. Please try again.");
+			}
+		} catch (error) {
+			console.error("Error updating word:", error);
+			showError("Error updating word. Please try again.");
+		}
+
 		handleShowTranslation();
 	};
 

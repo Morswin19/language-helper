@@ -15,10 +15,11 @@ import Typography from "@mui/material/Typography";
 import { texts } from "@/constants/texts";
 import { UpdatedWord, WordData } from "@/types/addWordFormData";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import * as React from "react";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { useNotificationStore } from "@/store/notificationStore";
+import { patchWord } from "@/services/patchWord";
 
 export default function WordEditForm({
 	word,
@@ -28,6 +29,8 @@ export default function WordEditForm({
 	setOpenDrawer: (open: boolean) => void;
 }) {
 	const { updateEditedWord } = useWordStore();
+	const { showSuccess, showError } = useNotificationStore();
+
 	const {
 		control,
 		handleSubmit,
@@ -51,12 +54,30 @@ export default function WordEditForm({
 	});
 
 	const onSubmit = async (data: UpdatedWord) => {
-		const updatedWord: WordData = {
-			...word,
-			...data,
-		};
+		try {
+			const updatedWord: WordData = {
+				...word,
+				...data,
+			};
 
-		updateEditedWord(updatedWord);
+			const {
+				success,
+				word: wordAfterUpdate,
+				error,
+			} = await patchWord(updatedWord._id, updatedWord);
+
+			if (success && wordAfterUpdate) {
+				updateEditedWord(wordAfterUpdate);
+				showSuccess(
+					`Word "${wordAfterUpdate.sourceWord}" → "${wordAfterUpdate.targetWord}" updated successfully!`,
+				);
+			} else {
+				showError("Error updating word. Please try again.");
+			}
+		} catch (error) {
+			console.error("Error updating word:", error);
+			showError("Error updating word. Please try again.");
+		}
 		setOpenDrawer(false);
 	};
 
