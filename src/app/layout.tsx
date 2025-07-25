@@ -5,6 +5,7 @@ import { Roboto } from "next/font/google";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 import * as React from "react";
+import NotificationContainer from "@/components/notificationContainer";
 
 const roboto = Roboto({
 	weight: ["300", "400", "500", "700"],
@@ -27,7 +28,9 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={roboto.variable}>
 				<AppRouterCacheProvider options={{ key: `css` }}>
-					<ThemeProvider theme={theme}>{children}</ThemeProvider>
+					<ThemeProvider theme={theme}>
+						{children} <NotificationContainer />
+					</ThemeProvider>
 				</AppRouterCacheProvider>
 			</body>
 		</html>

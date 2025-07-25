@@ -1,9 +1,6 @@
 import { create } from "zustand";
 import { Word } from "../models/Word";
-import { getNextRepeatDate } from "../utils/getNextRepeatDate";
 import { getUserWords } from "../services/getUserWords";
-import { UpdatedWord, WordData } from "@/types/addWordFormData";
-import { patchWord } from "@/services/patchWord";
 
 interface WordStore {
 	storeWords: Word[];
@@ -13,7 +10,7 @@ interface WordStore {
 	getWords: (userId: string) => Promise<void>;
 	getWord: (wordId: string) => Word;
 	updateRepeatedWord: (repeatStatus: string, updatedWord: Word) => Promise<void>;
-	updateEditedWord: (updatedWord: WordData) => Promise<void>;
+	updateEditedWord: (updatedWord: Word) => Promise<void>;
 	addWord: (word: Word) => void;
 }
 
@@ -38,76 +35,37 @@ export const useWordStore = create<WordStore>((set, get) => ({
 		}
 	},
 	getWord: (wordId) => get().storeWords.filter((word) => word._id === wordId)[0],
-	updateRepeatedWord: async (repeatStatus: string, updatedWord: Word) => {
-		const newWord: UpdatedWord = {
-			lastRepeatDate: new Date(),
-			numberOfRepeats: updatedWord.numberOfRepeats + 1,
-			goodRepeatsInRow:
-				repeatStatus === "GOOD"
-					? updatedWord.goodRepeatsInRow + 1
-					: (updatedWord.goodRepeatsInRow = 0),
-			numberOfBadRepeats:
-				repeatStatus === "BAD"
-					? updatedWord.numberOfBadRepeats + 1
-					: updatedWord.numberOfBadRepeats,
-			numberOfMediumRepeats:
-				repeatStatus === "MEDIUM"
-					? updatedWord.numberOfMediumRepeats + 1
-					: updatedWord.numberOfMediumRepeats,
-			numberOfGoodRepeats:
-				repeatStatus === "GOOD"
-					? updatedWord.numberOfGoodRepeats + 1
-					: updatedWord.numberOfGoodRepeats,
-			nextRepeatDate: getNextRepeatDate(
-				repeatStatus === "GOOD" ? updatedWord.goodRepeatsInRow + 1 : 0,
-			),
-		};
-
-		const { success, word, error } = await patchWord(updatedWord._id, newWord);
-
-		if (success) {
-			set((state) => ({
-				storeWords: state.storeWords.map((storeWord) => {
-					if (storeWord._id === updatedWord._id && word) {
-						return word;
-					}
-					return storeWord;
-				}),
-				wordsToRepeat: state.wordsToRepeat.slice(1),
-			}));
-		}
-
-		if (error) {
-			console.log("error when updating word", error);
-		}
+	updateRepeatedWord: async (repeatStatus: string, word: Word) => {
+		set((state) => ({
+			storeWords: state.storeWords.map((storeWord) => {
+				if (storeWord._id === word._id && word) {
+					return word;
+				}
+				return storeWord;
+			}),
+			wordsToRepeat: state.wordsToRepeat.slice(1),
+		}));
 	},
-	updateEditedWord: async (updatedWord: WordData) => {
-		const { success, word, error } = await patchWord(updatedWord._id, updatedWord);
-
-		if (success && word) {
-			// Update the store with the response from backend
-			set((state) => ({
-				storeWords: state.storeWords.map((storeWord) => {
-					if (storeWord._id === updatedWord._id) {
-						return word;
-					}
-					return storeWord;
-				}),
-				// Also update wordsToRepeat if the word exists there
-				wordsToRepeat: state.wordsToRepeat.map((repeatWord) => {
-					if (repeatWord._id === updatedWord._id) {
-						return word;
-					}
-					return repeatWord;
-				}),
-			}));
-		}
-
-		if (error) {
-			console.log("error when updating word", error);
-		}
+	updateEditedWord: async (updatedWord: Word) => {
+		// Update the store with the response from backend
+		set((state) => ({
+			// update store words if the word exist there
+			storeWords: state.storeWords.map((storeWord) => {
+				if (storeWord._id === updatedWord._id) {
+					return updatedWord;
+				}
+				return storeWord;
+			}),
+			// Also update wordsToRepeat if the word exists there
+			wordsToRepeat: state.wordsToRepeat.map((repeatWord) => {
+				if (repeatWord._id === updatedWord._id) {
+					return updatedWord;
+				}
+				return repeatWord;
+			}),
+		}));
 	},
-	addWord: (word) => {
+	addWord: async (word) => {
 		set((state) => ({
 			storeWords: [...state.storeWords, word],
 		}));

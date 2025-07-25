@@ -13,7 +13,7 @@ export interface Word extends Document {
 	numberOfMediumRepeats: number;
 	numberOfGoodRepeats: number;
 	goodRepeatsInRow: number;
-	lastRepeatDate: Date;
+	lastRepeatDate: Date | null;
 	nextRepeatDate: Date;
 	notes: string;
 }
@@ -85,7 +85,7 @@ const wordSchema: Schema = new mongoose.Schema(
 		},
 		lastRepeatDate: {
 			type: Date,
-			default: Date.now,
+			default: null,
 		},
 		nextRepeatDate: {
 			type: Date,
