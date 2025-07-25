@@ -72,11 +72,11 @@ export default function WordEditForm({
 					`Word "${wordAfterUpdate.sourceWord}" → "${wordAfterUpdate.targetWord}" updated successfully!`,
 				);
 			} else {
-				showError("Error updating word. Please try again.");
+				showError(`Error updating word. Please try again. ${error}`);
 			}
 		} catch (error) {
 			console.error("Error updating word:", error);
-			showError("Error updating word. Please try again.");
+			showError("Error updating word. Please try again. ");
 		}
 		setOpenDrawer(false);
 	};

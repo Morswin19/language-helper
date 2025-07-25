@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Box } from "@mui/material";
 import { Header } from "@/components/header/header";
-import { getUserWords } from "@/services/getUserWords";
 
 export default async function UserLayout({
 	children,
