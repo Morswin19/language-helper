@@ -9,6 +9,7 @@
     "lint": "next lint --fix --dir src"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.26.0",
     "@emotion/cache": "^11.13.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
