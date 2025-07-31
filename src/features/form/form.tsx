@@ -1,17 +1,15 @@
 "use client";
 
-import {
-	Box,
-	Select,
-	Radio,
-	RadioGroup,
-	FormControlLabel,
-	MenuItem,
-	TextField,
-	TextareaAutosize,
-	Button,
-	Typography,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Select from "@mui/material/Select";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -23,8 +21,14 @@ import { useWordStore } from "@/store/wordStore";
 
 import { texts } from "@/constants/texts";
 import { useNotificationStore } from "@/store/notificationStore";
+import { useUserStore } from "@/store/userStore";
+import { auth } from "@clerk/nextjs/server";
+import { useUser } from "@clerk/nextjs";
 
-export default function Form({ userId }: { userId: string }) {
+export default function Form() {
+	// const { userId } = useUserStore();
+	const { user } = useUser();
+	const userId = user?.id || "";
 	const {
 		control,
 		handleSubmit,

@@ -12,30 +12,30 @@ import TocIcon from "@mui/icons-material/Toc";
 import Link from "next/link";
 import Typography from "@mui/material/Typography";
 import { useWordStore } from "@/store/wordStore";
-import { useUserStore } from "@/store/userStore";
 import { texts } from "@/constants/texts";
 import { useEffect } from "react";
+import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
 
-export const Header = ({ userId }: { userId: string }) => {
+export const Header = () => {
 	const { storeWords, getWords } = useWordStore();
-	const { storeUser, getUserInfo } = useUserStore();
-
-	if (storeUser._id === "") {
-		getUserInfo(userId);
-	}
+	const { user } = useUser();
+	const userId = user?.id;
+	const userName = user?.firstName;
+	console.log("userId", userId);
 
 	useEffect(() => {
-		if (!storeWords.length) {
+		if (!storeWords.length && userId) {
 			getWords(userId);
 		}
-	}, []);
+		console.log("storeWords", storeWords);
+	}, [userId]);
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
 				<Toolbar>
 					<Box className="flex grow gap-2">
-						<Link href={`/users/${storeUser._id}/words`}>
+						<Link href={`/users/${userId}/words`}>
 							<Button variant="outlined" color="secondary">
 								<TocIcon />
 								<Typography variant="subtitle2" className="hidden md:block">
@@ -44,7 +44,7 @@ export const Header = ({ userId }: { userId: string }) => {
 								<Typography variant="subtitle2">{storeWords.length}</Typography>
 							</Button>
 						</Link>
-						<Link href={`/users/${storeUser._id}/repeats`}>
+						<Link href={`/users/${userId}/repeats`}>
 							<Button variant="outlined" color="secondary">
 								<RepeatIcon />
 								<Typography variant="subtitle2" className="hidden md:block">
@@ -55,7 +55,7 @@ export const Header = ({ userId }: { userId: string }) => {
 								</Typography>
 							</Button>
 						</Link>
-						<Link href={`/users/${storeUser._id}/form`}>
+						<Link href={`/users/${userId}/form`}>
 							<Button variant="outlined" color="secondary">
 								<AddIcon />{" "}
 								<Typography variant="subtitle2" className="hidden md:block">
@@ -64,12 +64,19 @@ export const Header = ({ userId }: { userId: string }) => {
 							</Button>
 						</Link>
 					</Box>
-					<Typography className="hidden capitalize md:block">
-						{texts.header.hi} {storeUser.username}
-					</Typography>
-					<IconButton color="inherit" aria-label="menu">
-						<PowerSettingsNewIcon />
-					</IconButton>
+					<Box className="flex items-center justify-items-end gap-2">
+						{userName && (
+							<Typography className="hidden capitalize md:block">
+								{texts.header.hi} {userName}
+							</Typography>
+						)}
+						<SignedIn>
+							<UserButton />
+						</SignedIn>
+						<IconButton color="inherit" aria-label="menu">
+							<PowerSettingsNewIcon />
+						</IconButton>
+					</Box>
 				</Toolbar>
 			</AppBar>
 		</Box>
