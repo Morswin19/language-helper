@@ -12,10 +12,12 @@ import { RepeatedWordAdditionalSettings } from "@/features/repeats/repeatedWordA
 import { useNotificationStore } from "@/store/notificationStore";
 import { patchWord } from "@/services/patchWord";
 import { getWordAfterRepeat } from "@/utils/getWordAfterRepeat";
+import { useUser } from "@clerk/nextjs";
 
 export const Repeats = () => {
 	const { getWord, wordsToRepeat, updateRepeatedWord } = useWordStore();
 	const { showError } = useNotificationStore();
+	const { isSignedIn } = useUser();
 
 	const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -120,8 +122,10 @@ export const Repeats = () => {
 						/>
 					)}
 				</>
-			) : (
+			) : isSignedIn ? (
 				<Typography>{texts.repeats.nothing}</Typography>
+			) : (
+				<Typography>{texts.auth.signInRepeats}</Typography>
 			)}
 		</>
 	);
