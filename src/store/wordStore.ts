@@ -12,6 +12,7 @@ interface WordStore {
 	updateRepeatedWord: (repeatStatus: string, updatedWord: Word) => Promise<void>;
 	updateEditedWord: (updatedWord: Word) => Promise<void>;
 	addWord: (word: Word) => void;
+	clearWords: () => void;
 }
 
 export const useWordStore = create<WordStore>((set, get) => ({
@@ -70,4 +71,5 @@ export const useWordStore = create<WordStore>((set, get) => ({
 			storeWords: [...state.storeWords, word],
 		}));
 	},
+	clearWords: () => set({ storeWords: [], wordsToRepeat: [] }),
 }));

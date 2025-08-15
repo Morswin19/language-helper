@@ -22,27 +22,23 @@ import {
 } from "@clerk/nextjs";
 
 export const Header = () => {
-	const { storeWords, getWords } = useWordStore();
-	const { user } = useUser();
-	const userId = user?.id;
+	const { storeWords, getWords, clearWords } = useWordStore();
+	const { user, isSignedIn } = useUser();
 	const userName = user?.firstName;
-	console.log("userId", userId);
-	// const { userId } = await auth();
-	// console.log(userId);
-	// if (userId != null) redirect(`/users/${userId}`);
 
 	useEffect(() => {
-		if (!storeWords.length && userId) {
-			getWords(userId);
+		if (!storeWords.length && user?.id && isSignedIn) {
+			getWords(user.id);
+		} else if (!isSignedIn) {
+			clearWords();
 		}
-		console.log("storeWords", storeWords);
-	}, [userId]);
+	}, [isSignedIn, user?.id, storeWords.length, getWords, clearWords]);
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
 				<Toolbar>
-					{!!userId ? (
+					{!!user?.id ? (
 						<Box className="flex grow gap-2">
 							<Link href={`/words`}>
 								<Button variant="outlined" color="secondary">
@@ -91,9 +87,9 @@ export const Header = () => {
 								<Button
 									variant="contained"
 									color="secondary"
-									className="border-red border-red !rounded-md border-[1px] !border-solid"
+									className="border-red !rounded-md border-[1px] !border-solid"
 								>
-									Sign In
+									{texts.auth.signIn}
 								</Button>
 							</SignInButton>
 							<SignUpButton>
@@ -102,7 +98,7 @@ export const Header = () => {
 									color="secondary"
 									className="rounded-md bg-black text-white"
 								>
-									Sign Up
+									{texts.auth.signUp}
 								</Button>
 							</SignUpButton>
 						</SignedOut>

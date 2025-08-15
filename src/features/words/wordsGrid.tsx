@@ -10,9 +10,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useState } from "react";
 import DeleteWordDialog from "../../components/deleteWordDialog";
 import { texts } from "@/constants/texts";
-import { Drawer } from "@mui/material";
+import Container from "@mui/material/Container";
+import Drawer from "@mui/material/Drawer";
+import Typography from "@mui/material/Typography";
 import WordEditForm from "@/features/wordEditForm/WordEditForm";
 import { Word } from "@/models/Word";
+import { useUser } from "@clerk/nextjs";
 
 const paginationModel = { page: 0, pageSize: 100 };
 
@@ -22,6 +25,7 @@ export default function WordsGrid() {
 	const [dialogActiveWordID, setDialogActiveWordID] = useState("");
 	const [editActiveWord, setEditActiveWord] = useState<Word>();
 	const [openDrawer, setOpenDrawer] = useState(false);
+	const { isSignedIn } = useUser();
 
 	const { storeWords } = useWordStore();
 
@@ -143,23 +147,31 @@ export default function WordsGrid() {
 
 	return (
 		<>
-			<Box className="container mx-auto my-4 flex justify-center px-4">
-				<DataGrid
-					rows={rows}
-					columns={columns}
-					initialState={{ pagination: { paginationModel } }}
-					sx={{ border: 0 }}
-				/>
-			</Box>
-			<DeleteWordDialog
-				deleteDialogOpen={deleteDialogOpen}
-				setDeleteDialogOpen={setDeleteDialogOpen}
-				dialogActiveWord={dialogActiveWord}
-				dialogActiveWordID={dialogActiveWordID}
-			/>
-			<Drawer anchor="right" open={openDrawer} onClose={() => setOpenDrawer(false)}>
-				{editActiveWord && <WordEditForm word={editActiveWord} setOpenDrawer={setOpenDrawer} />}
-			</Drawer>
+			{isSignedIn ? (
+				<>
+					<Box className="container mx-auto my-4 flex justify-center px-4">
+						<DataGrid
+							rows={rows}
+							columns={columns}
+							initialState={{ pagination: { paginationModel } }}
+							sx={{ border: 0 }}
+						/>
+					</Box>
+					<DeleteWordDialog
+						deleteDialogOpen={deleteDialogOpen}
+						setDeleteDialogOpen={setDeleteDialogOpen}
+						dialogActiveWord={dialogActiveWord}
+						dialogActiveWordID={dialogActiveWordID}
+					/>
+					<Drawer anchor="right" open={openDrawer} onClose={() => setOpenDrawer(false)}>
+						{editActiveWord && <WordEditForm word={editActiveWord} setOpenDrawer={setOpenDrawer} />}
+					</Drawer>
+				</>
+			) : (
+				<Container className="md-my:16 my-8">
+					<Typography className="text-center">{texts.auth.signInWords}</Typography>
+				</Container>
+			)}
 		</>
 	);
 }

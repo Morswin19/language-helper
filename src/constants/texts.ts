@@ -39,10 +39,6 @@ export const texts = {
 		show: "show",
 		nothing: "nothing to repeat",
 	},
-	login: {
-		choose: "choose your profile",
-		go: "login",
-	},
 	header: {
 		words: "your words",
 		repeats: "repeats for today",
@@ -57,5 +53,12 @@ export const texts = {
 		notes: "notes",
 		delete: "remove",
 		edit: "edit",
+	},
+	auth: {
+		signIn: "sign in",
+		signUp: "sign up",
+		signInForm: "sign in to add words",
+		signInRepeats: "sign in to repeat the words",
+		signInWords: "sign in to view your words",
 	},
 };
