@@ -1,22 +1,26 @@
 "use client";
-import { createTheme } from "@mui/material/styles";
+import { extendTheme } from "@mui/material/styles";
 
-const theme = createTheme({
+const theme = extendTheme({
 	typography: {
 		fontFamily: "var(--font-roboto)",
 	},
-	palette: {
-		primary: {
-			main: "#131313",
-			light: "#1A1A1A",
-			dark: "#353535",
-			contrastText: "#FFFFFF",
-		},
-		secondary: {
-			main: "#FFFFFF",
-			light: "#DDDDDD",
-			dark: "#BBBBBB",
-			contrastText: "#000000",
+	colorSchemes: {
+		light: {
+			palette: {
+				primary: {
+					main: "#131313",
+					light: "#353535",
+					dark: "#1A1A1A",
+					contrastText: "#FFFFFF",
+				},
+				secondary: {
+					main: "#DDDDDD",
+					light: "#FFFFFF",
+					dark: "#BBBBBB",
+					contrastText: "#000000",
+				},
+			},
 		},
 	},
 });

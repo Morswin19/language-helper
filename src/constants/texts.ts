@@ -36,6 +36,7 @@ export const texts = {
 	},
 	repeats: {
 		title: "repeats",
+		titleMobile: "rep.",
 		show: "show",
 		nothing: "nothing to repeat",
 	},
@@ -57,5 +58,10 @@ export const texts = {
 		notes: "notes",
 		delete: "remove",
 		edit: "edit",
+	},
+	calendar: {
+		previous: "previous",
+		next: "next",
+		numberOfRepeats: "Calendar of repeats",
 	},
 };
