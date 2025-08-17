@@ -62,6 +62,6 @@ export const texts = {
 	calendar: {
 		previous: "previous",
 		next: "next",
-		numberOfRepeats: "Calendar of repeats",
+		numberOfRepeats: "Repeats calendar",
 	},
 };

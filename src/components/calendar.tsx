@@ -9,8 +9,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Temporal } from "temporal-polyfill";
 import { texts } from "@/constants/texts";
 
-console.log(Temporal.Now.zonedDateTimeISO().toString());
-
 function Calendar() {
 	const [month, setMonth] = useState(Temporal.Now.plainDateISO().month);
 	const [year, setYear] = useState(Temporal.Now.plainDateISO().year);

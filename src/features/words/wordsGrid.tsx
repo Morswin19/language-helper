@@ -87,7 +87,7 @@ export default function WordsGrid() {
 			headerName: texts.words.edit,
 			width: 70,
 			renderCell: (params) => (
-				<IconButton onClick={() => handleEditClickInWordsTable(params.row.id)} color="warning">
+				<IconButton onClick={() => handleEditClickInWordsTable(params.row.id)} color="info">
 					<EditIcon />
 				</IconButton>
 			),

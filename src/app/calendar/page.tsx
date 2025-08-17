@@ -1,5 +1,5 @@
-import Calendar from "@/components/calendar";
+import RepeatsCalendar from "@/features/repeatsCalendar/repeatsCalendar";
 
-export default function RepeatsCalendar() {
-	return <Calendar />;
+export default function RepeatsCalendarPage() {
+	return <RepeatsCalendar />;
 }
