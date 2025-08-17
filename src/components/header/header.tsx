@@ -41,7 +41,13 @@ export const Header = () => {
 					{!!user?.id ? (
 						<Box className="flex grow gap-2">
 							<Link href={`/words`}>
-								<Button variant="outlined" color="secondary">
+								<Button
+									variant="contained"
+									sx={{
+										color: "var(--mui-palette-tertiary-contrastText)",
+										bgcolor: "var(--mui-palette-tertiary-main)",
+									}}
+								>
 									<TocIcon />
 									<Typography variant="subtitle2" className="hidden md:block">
 										{texts.header.words}:
@@ -50,7 +56,13 @@ export const Header = () => {
 								</Button>
 							</Link>
 							<Link href={`/repeats`}>
-								<Button variant="outlined" color="secondary">
+								<Button
+									variant="contained"
+									sx={{
+										color: "var(--mui-palette-tertiary-contrastText)",
+										bgcolor: "var(--mui-palette-tertiary-main)",
+									}}
+								>
 									<RepeatIcon />
 									<Typography variant="subtitle2" className="hidden md:block">
 										{texts.header.repeats}:
@@ -61,7 +73,13 @@ export const Header = () => {
 								</Button>
 							</Link>
 							<Link href={`/form`}>
-								<Button variant="outlined" color="secondary">
+								<Button
+									variant="contained"
+									sx={{
+										color: "var(--mui-palette-tertiary-contrastText)",
+										bgcolor: "var(--mui-palette-tertiary-main)",
+									}}
+								>
 									<AddIcon />{" "}
 									<Typography variant="subtitle2" className="hidden md:block">
 										{texts.header.add}
@@ -86,7 +104,7 @@ export const Header = () => {
 							<SignInButton>
 								<Button
 									variant="contained"
-									color="secondary"
+									color="warning"
 									className="border-red !rounded-md border-[1px] !border-solid"
 								>
 									{texts.auth.signIn}
@@ -94,8 +112,8 @@ export const Header = () => {
 							</SignInButton>
 							<SignUpButton>
 								<Button
-									variant="contained"
-									color="secondary"
+									variant="outlined"
+									color="warning"
 									className="rounded-md bg-black text-white"
 								>
 									{texts.auth.signUp}
