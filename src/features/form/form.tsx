@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -21,13 +22,11 @@ import { useWordStore } from "@/store/wordStore";
 
 import { texts } from "@/constants/texts";
 import { useNotificationStore } from "@/store/notificationStore";
-import { useUserStore } from "@/store/userStore";
-import { auth } from "@clerk/nextjs/server";
 import { useUser } from "@clerk/nextjs";
 
 export default function Form() {
 	// const { userId } = useUserStore();
-	const { user } = useUser();
+	const { user, isSignedIn } = useUser();
 	const userId = user?.id || "";
 	const {
 		control,
@@ -73,103 +72,113 @@ export default function Form() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<Box className="m-auto flex max-w-lg flex-col gap-4">
-				<Box>
-					<Typography>{texts.source}</Typography>
-					<Controller
-						name="sourceLanguage"
-						control={control}
-						render={({ field }) => (
-							<RadioGroup {...field} row>
-								<FormControlLabel value="PL" control={<Radio />} label="PL" />
-								<FormControlLabel value="EN" control={<Radio />} label="EN" />
-								<FormControlLabel value="ES" control={<Radio />} label="ES" />
-								<FormControlLabel value="CAT" control={<Radio />} label="CAT" />
-							</RadioGroup>
-						)}
-					/>
-				</Box>
-				<Controller
-					name="sourceWord"
-					control={control}
-					render={({ field }) => (
-						<TextField
-							className="m-0"
-							{...field}
-							fullWidth
-							label={texts.form.sourcePlaceholder}
-							variant="outlined"
-							margin="none"
-							error={!!errors.sourceWord}
-							helperText={errors.sourceWord?.message}
-						/>
-					)}
-				/>
-				<Box>
-					<Typography>{texts.target}</Typography>
-					<Controller
-						name="targetLanguage"
-						control={control}
-						render={({ field }) => (
-							<RadioGroup {...field} row>
-								<FormControlLabel value="PL" control={<Radio />} label="PL" />
-								<FormControlLabel value="EN" control={<Radio />} label="EN" />
-								<FormControlLabel value="ES" control={<Radio />} label="ES" />
-								<FormControlLabel value="CAT" control={<Radio />} label="CAT" />
-							</RadioGroup>
-						)}
-					/>
-				</Box>
-				<Controller
-					name="targetWord"
-					control={control}
-					render={({ field }) => (
-						<TextField
-							{...field}
-							fullWidth
-							label={texts.form.targetPlaceholder}
-							variant="outlined"
-							margin="none"
-							error={!!errors.targetWord}
-							helperText={errors.targetWord?.message}
-						/>
-					)}
-				/>
-				<Box>
-					<Typography>{texts.part}</Typography>
-					<Controller
-						name="partOfSpeech"
-						control={control}
-						render={({ field }) => (
-							<Select {...field} className="w-48">
-								<MenuItem value="noun">{texts.form.noun}</MenuItem>
-								<MenuItem value="pronoun">{texts.form.pronoun}</MenuItem>
-								<MenuItem value="verb">{texts.form.verb}</MenuItem>
-								<MenuItem value="adverb">{texts.form.adverb}</MenuItem>
-								<MenuItem value="adjective">{texts.form.adjective}</MenuItem>
-								<MenuItem value="sentence">{texts.form.sentence}</MenuItem>
-							</Select>
-						)}
-					/>
-				</Box>
-				<Controller
-					name="notes"
-					control={control}
-					render={({ field }) => (
-						<TextareaAutosize
-							{...field}
-							aria-label="notes"
-							minRows={3}
-							placeholder={texts.form.notesPlaceholder}
-							className="focus-2 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
-						/>
-					)}
-				/>
-				<Button variant="contained" type="submit">
-					{texts.form.submit}
-				</Button>
-			</Box>
-		</form>
+		<>
+			{isSignedIn ? (
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<Container>
+						<Box className="m-auto my-8 flex max-w-lg flex-col gap-4 md:my-16">
+							<Box>
+								<Typography>{texts.source}</Typography>
+								<Controller
+									name="sourceLanguage"
+									control={control}
+									render={({ field }) => (
+										<RadioGroup {...field} row>
+											<FormControlLabel value="PL" control={<Radio />} label="PL" />
+											<FormControlLabel value="EN" control={<Radio />} label="EN" />
+											<FormControlLabel value="ES" control={<Radio />} label="ES" />
+											<FormControlLabel value="CAT" control={<Radio />} label="CAT" />
+										</RadioGroup>
+									)}
+								/>
+							</Box>
+							<Controller
+								name="sourceWord"
+								control={control}
+								render={({ field }) => (
+									<TextField
+										className="m-0"
+										{...field}
+										fullWidth
+										label={texts.form.sourcePlaceholder}
+										variant="outlined"
+										margin="none"
+										error={!!errors.sourceWord}
+										helperText={errors.sourceWord?.message}
+									/>
+								)}
+							/>
+							<Box>
+								<Typography>{texts.target}</Typography>
+								<Controller
+									name="targetLanguage"
+									control={control}
+									render={({ field }) => (
+										<RadioGroup {...field} row>
+											<FormControlLabel value="PL" control={<Radio />} label="PL" />
+											<FormControlLabel value="EN" control={<Radio />} label="EN" />
+											<FormControlLabel value="ES" control={<Radio />} label="ES" />
+											<FormControlLabel value="CAT" control={<Radio />} label="CAT" />
+										</RadioGroup>
+									)}
+								/>
+							</Box>
+							<Controller
+								name="targetWord"
+								control={control}
+								render={({ field }) => (
+									<TextField
+										{...field}
+										fullWidth
+										label={texts.form.targetPlaceholder}
+										variant="outlined"
+										margin="none"
+										error={!!errors.targetWord}
+										helperText={errors.targetWord?.message}
+									/>
+								)}
+							/>
+							<Box>
+								<Typography>{texts.part}</Typography>
+								<Controller
+									name="partOfSpeech"
+									control={control}
+									render={({ field }) => (
+										<Select {...field} className="w-48">
+											<MenuItem value="noun">{texts.form.noun}</MenuItem>
+											<MenuItem value="pronoun">{texts.form.pronoun}</MenuItem>
+											<MenuItem value="verb">{texts.form.verb}</MenuItem>
+											<MenuItem value="adverb">{texts.form.adverb}</MenuItem>
+											<MenuItem value="adjective">{texts.form.adjective}</MenuItem>
+											<MenuItem value="sentence">{texts.form.sentence}</MenuItem>
+										</Select>
+									)}
+								/>
+							</Box>
+							<Controller
+								name="notes"
+								control={control}
+								render={({ field }) => (
+									<TextareaAutosize
+										{...field}
+										aria-label="notes"
+										minRows={3}
+										placeholder={texts.form.notesPlaceholder}
+										className="focus-2 w-full rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:ring-blue-500"
+									/>
+								)}
+							/>
+							<Button variant="contained" type="submit">
+								{texts.form.submit}
+							</Button>
+						</Box>
+					</Container>
+				</form>
+			) : (
+				<Container>
+					<Typography>{texts.auth.signInForm}</Typography>
+				</Container>
+			)}
+		</>
 	);
 }
