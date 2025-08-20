@@ -102,20 +102,12 @@ export const Header = () => {
 						</SignedIn>
 						<SignedOut>
 							<SignInButton>
-								<Button
-									variant="contained"
-									color="warning"
-									className="border-red !rounded-md border-[1px] !border-solid"
-								>
+								<Button variant="contained" color="warning" className="!rounded-md">
 									{texts.auth.signIn}
 								</Button>
 							</SignInButton>
 							<SignUpButton>
-								<Button
-									variant="outlined"
-									color="warning"
-									className="rounded-md bg-black text-white"
-								>
+								<Button variant="contained" color="warning" className="!rounded-md">
 									{texts.auth.signUp}
 								</Button>
 							</SignUpButton>
