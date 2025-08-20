@@ -36,6 +36,7 @@ export const texts = {
 	},
 	repeats: {
 		title: "repeats",
+		titleMobile: "rep.",
 		show: "show",
 		nothing: "nothing to repeat",
 	},
@@ -60,5 +61,10 @@ export const texts = {
 		signInForm: "sign in to add words",
 		signInRepeats: "sign in to repeat the words",
 		signInWords: "sign in to view your words",
+	},
+	calendar: {
+		previous: "previous",
+		next: "next",
+		numberOfRepeats: "Repeats calendar",
 	},
 };

@@ -41,7 +41,13 @@ export const Header = () => {
 					{!!user?.id ? (
 						<Box className="flex grow gap-2">
 							<Link href={`/words`}>
-								<Button variant="outlined" color="secondary">
+								<Button
+									variant="contained"
+									sx={{
+										color: "var(--mui-palette-tertiary-contrastText)",
+										bgcolor: "var(--mui-palette-tertiary-main)",
+									}}
+								>
 									<TocIcon />
 									<Typography variant="subtitle2" className="hidden md:block">
 										{texts.header.words}:
@@ -50,7 +56,13 @@ export const Header = () => {
 								</Button>
 							</Link>
 							<Link href={`/repeats`}>
-								<Button variant="outlined" color="secondary">
+								<Button
+									variant="contained"
+									sx={{
+										color: "var(--mui-palette-tertiary-contrastText)",
+										bgcolor: "var(--mui-palette-tertiary-main)",
+									}}
+								>
 									<RepeatIcon />
 									<Typography variant="subtitle2" className="hidden md:block">
 										{texts.header.repeats}:
@@ -61,7 +73,13 @@ export const Header = () => {
 								</Button>
 							</Link>
 							<Link href={`/form`}>
-								<Button variant="outlined" color="secondary">
+								<Button
+									variant="contained"
+									sx={{
+										color: "var(--mui-palette-tertiary-contrastText)",
+										bgcolor: "var(--mui-palette-tertiary-main)",
+									}}
+								>
 									<AddIcon />{" "}
 									<Typography variant="subtitle2" className="hidden md:block">
 										{texts.header.add}
@@ -84,20 +102,12 @@ export const Header = () => {
 						</SignedIn>
 						<SignedOut>
 							<SignInButton>
-								<Button
-									variant="contained"
-									color="secondary"
-									className="border-red !rounded-md border-[1px] !border-solid"
-								>
+								<Button variant="contained" color="warning" className="!rounded-md">
 									{texts.auth.signIn}
 								</Button>
 							</SignInButton>
 							<SignUpButton>
-								<Button
-									variant="contained"
-									color="secondary"
-									className="rounded-md bg-black text-white"
-								>
+								<Button variant="contained" color="warning" className="!rounded-md">
 									{texts.auth.signUp}
 								</Button>
 							</SignUpButton>
