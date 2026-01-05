@@ -100,110 +100,104 @@ export const Repeats = () => {
 
 	return (
 		<>
-			<>
-				{wordsToRepeat.length > 0 ? (
-					<>
-						<FormControl>
-							<FormLabel id="demo-radio-buttons-group-label">Source word language</FormLabel>
-							<RadioGroup
-								defaultValue="ALL"
-								name="radio-buttons-group"
-								onChange={(e) =>
-									setRepeatsLanguages({ ...repeatsLanguages, source: e.target.value })
-								}
-								row
-							>
-								<FormControlLabel value="ALL" control={<Radio />} label="ALL" />
-								{LANGUAGES.map((item) => (
-									<>
-										<FormControlLabel value={item.symbol} control={<Radio />} label={item.symbol} />
-									</>
-								))}
-							</RadioGroup>
-						</FormControl>
-						<FormControl>
-							<FormLabel id="demo-radio-buttons-group-label">Target word language</FormLabel>
-							<RadioGroup
-								defaultValue="ALL"
-								name="radio-buttons-group"
-								onChange={(e) =>
-									setRepeatsLanguages({ ...repeatsLanguages, target: e.target.value })
-								}
-								row
-							>
-								<FormControlLabel value="ALL" control={<Radio />} label="ALL" />
+			{wordsToRepeat.length > 0 ? (
+				<>
+					<FormControl>
+						<FormLabel id="demo-radio-buttons-group-label">Source word language</FormLabel>
+						<RadioGroup
+							defaultValue="ALL"
+							name="radio-buttons-group"
+							onChange={(e) => setRepeatsLanguages({ ...repeatsLanguages, source: e.target.value })}
+							row
+						>
+							<FormControlLabel value="ALL" control={<Radio />} label="ALL" />
+							{LANGUAGES.map((item) => (
+								<>
+									<FormControlLabel value={item.symbol} control={<Radio />} label={item.symbol} />
+								</>
+							))}
+						</RadioGroup>
+					</FormControl>
+					<FormControl>
+						<FormLabel id="demo-radio-buttons-group-label">Target word language</FormLabel>
+						<RadioGroup
+							defaultValue="ALL"
+							name="radio-buttons-group"
+							onChange={(e) => setRepeatsLanguages({ ...repeatsLanguages, target: e.target.value })}
+							row
+						>
+							<FormControlLabel value="ALL" control={<Radio />} label="ALL" />
 
-								{LANGUAGES.map((item) => (
+							{LANGUAGES.map((item) => (
+								<>
+									<FormControlLabel value={item.symbol} control={<Radio />} label={item.symbol} />
+								</>
+							))}
+						</RadioGroup>
+					</FormControl>
+					<Typography>{filteredWordsToRepeat.length} words</Typography>
+					{filteredWordsToRepeat.length > 0 && (
+						<>
+							<Chip
+								className="self-end"
+								label={filteredWordsToRepeat[0].partOfSpeech}
+								color="primary"
+							/>
+							<Box>
+								<Typography align="center" variant="h6">
+									{filteredWordsToRepeat[0].sourceWord}
+								</Typography>
+								<Typography align="center" className="text-center" variant="h6">
+									{showTranslation && filteredWordsToRepeat[0].targetWord}
+								</Typography>
+							</Box>
+							<Box className="mb-4 mt-2 flex gap-4">
+								{showTranslation ? (
 									<>
-										<FormControlLabel value={item.symbol} control={<Radio />} label={item.symbol} />
-									</>
-								))}
-							</RadioGroup>
-						</FormControl>
-						<Typography>{filteredWordsToRepeat.length} words</Typography>
-						{filteredWordsToRepeat.length > 0 && (
-							<>
-								<Chip
-									className="self-end"
-									label={filteredWordsToRepeat[0].partOfSpeech}
-									color="primary"
-								/>
-								<Box>
-									<Typography align="center" variant="h6">
-										{filteredWordsToRepeat[0].sourceWord}
-									</Typography>
-									<Typography align="center" className="text-center" variant="h6">
-										{showTranslation && filteredWordsToRepeat[0].targetWord}
-									</Typography>
-								</Box>
-								<Box className="mb-4 mt-2 flex gap-4">
-									{showTranslation ? (
-										<>
-											<KeyboardButton
-												text={texts.bad}
-												keyboardKey="1"
-												onClick={() => handleRepeatWord("BAD", filteredWordsToRepeat[0]._id)}
-											/>
-											<KeyboardButton
-												text={texts.medium}
-												keyboardKey="2"
-												onClick={() => handleRepeatWord("MEDIUM", filteredWordsToRepeat[0]._id)}
-											/>
-											<KeyboardButton
-												text={texts.good}
-												keyboardKey="3"
-												onClick={() => handleRepeatWord("GOOD", filteredWordsToRepeat[0]._id)}
-											/>
-										</>
-									) : (
 										<KeyboardButton
-											text={texts.repeats.show}
-											keyboardKey="⏎"
-											onClick={handleShowTranslation}
+											text={texts.bad}
+											keyboardKey="1"
+											onClick={() => handleRepeatWord("BAD", filteredWordsToRepeat[0]._id)}
 										/>
-									)}
-								</Box>
-								<RepeatedWordInfo word={filteredWordsToRepeat[0]} />
-								{showTranslation && (
-									<RepeatedWordAdditionalSettings
-										word={filteredWordsToRepeat[0]}
-										openDrawer={openDrawer}
-										setOpenDrawer={setOpenDrawer}
+										<KeyboardButton
+											text={texts.medium}
+											keyboardKey="2"
+											onClick={() => handleRepeatWord("MEDIUM", filteredWordsToRepeat[0]._id)}
+										/>
+										<KeyboardButton
+											text={texts.good}
+											keyboardKey="3"
+											onClick={() => handleRepeatWord("GOOD", filteredWordsToRepeat[0]._id)}
+										/>
+									</>
+								) : (
+									<KeyboardButton
+										text={texts.repeats.show}
+										keyboardKey="⏎"
+										onClick={handleShowTranslation}
 									/>
 								)}
-								<Link href="/calendar">RepeatsCalendar</Link>
-							</>
-						)}
-					</>
-				) : isSignedIn ? (
-					<>
-						<Typography>{texts.repeats.nothing}</Typography>
-						<Link href="/calendar">RepeatsCalendar</Link>
-					</>
-				) : (
-					<Typography>{texts.auth.signInRepeats}</Typography>
-				)}
-			</>
+							</Box>
+							<RepeatedWordInfo word={filteredWordsToRepeat[0]} />
+							{showTranslation && (
+								<RepeatedWordAdditionalSettings
+									word={filteredWordsToRepeat[0]}
+									openDrawer={openDrawer}
+									setOpenDrawer={setOpenDrawer}
+								/>
+							)}
+							<Link href="/calendar">RepeatsCalendar</Link>
+						</>
+					)}
+				</>
+			) : isSignedIn ? (
+				<>
+					<Typography>{texts.repeats.nothing}</Typography>
+					<Link href="/calendar">RepeatsCalendar</Link>
+				</>
+			) : (
+				<Typography>{texts.auth.signInRepeats}</Typography>
+			)}
 		</>
 	);
 };
