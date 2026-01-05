@@ -9,7 +9,7 @@ interface WordStore {
 	setWordsToRepeat: (words: Word[]) => void;
 	getWords: (userId: string) => Promise<void>;
 	getWord: (wordId: string) => Word;
-	updateRepeatedWord: (repeatStatus: string, updatedWord: Word) => Promise<void>;
+	updateRepeatedWord: (updatedWord: Word) => Promise<void>;
 	updateEditedWord: (updatedWord: Word) => Promise<void>;
 	addWord: (word: Word) => void;
 	clearWords: () => void;
@@ -36,7 +36,7 @@ export const useWordStore = create<WordStore>((set, get) => ({
 		}
 	},
 	getWord: (wordId) => get().storeWords.filter((word) => word._id === wordId)[0],
-	updateRepeatedWord: async (repeatStatus: string, word: Word) => {
+	updateRepeatedWord: async (word: Word) => {
 		set((state) => ({
 			storeWords: state.storeWords.map((storeWord) => {
 				if (storeWord._id === word._id && word) {
@@ -44,7 +44,7 @@ export const useWordStore = create<WordStore>((set, get) => ({
 				}
 				return storeWord;
 			}),
-			wordsToRepeat: state.wordsToRepeat.slice(1),
+			wordsToRepeat: state.wordsToRepeat.filter((wordToRepeat) => wordToRepeat._id !== word._id),
 		}));
 	},
 	updateEditedWord: async (updatedWord: Word) => {
