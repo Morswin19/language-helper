@@ -23,6 +23,7 @@ import { useWordStore } from "@/store/wordStore";
 import { texts } from "@/constants/texts";
 import { useNotificationStore } from "@/store/notificationStore";
 import { useUser } from "@clerk/nextjs";
+import { LANGUAGES } from "@/constants/languageData";
 
 export default function Form() {
 	// const { userId } = useUserStore();
@@ -84,10 +85,15 @@ export default function Form() {
 									control={control}
 									render={({ field }) => (
 										<RadioGroup {...field} row>
-											<FormControlLabel value="PL" control={<Radio />} label="PL" />
-											<FormControlLabel value="EN" control={<Radio />} label="EN" />
-											<FormControlLabel value="ES" control={<Radio />} label="ES" />
-											<FormControlLabel value="CAT" control={<Radio />} label="CAT" />
+											{LANGUAGES.map((item) => (
+												<>
+													<FormControlLabel
+														value={item.symbol}
+														control={<Radio />}
+														label={item.symbol}
+													/>
+												</>
+											))}
 										</RadioGroup>
 									)}
 								/>
@@ -115,10 +121,15 @@ export default function Form() {
 									control={control}
 									render={({ field }) => (
 										<RadioGroup {...field} row>
-											<FormControlLabel value="PL" control={<Radio />} label="PL" />
-											<FormControlLabel value="EN" control={<Radio />} label="EN" />
-											<FormControlLabel value="ES" control={<Radio />} label="ES" />
-											<FormControlLabel value="CAT" control={<Radio />} label="CAT" />
+											{LANGUAGES.map((item) => (
+												<>
+													<FormControlLabel
+														value={item.symbol}
+														control={<Radio />}
+														label={item.symbol}
+													/>
+												</>
+											))}
 										</RadioGroup>
 									)}
 								/>

@@ -146,11 +146,11 @@ function RepeatsCalendar() {
 							key={index}
 							className={`h-20 border border-slate-700 p-1 md:p-2 ${
 								day.isInMonth
-									? "bg-[var(--mui-palette-secondary-light)]"
-									: "bg-[var(--mui-palette-secondary-main)]"
+									? "bg-[--mui-palette-primary-main]"
+									: "bg-[--mui-palette-primary-dark]"
 							}`}
 						>
-							<Typography color="primary.light" className="!text-sm">
+							<Typography color="tertiary.light" className="!text-sm text-white">
 								{day.date.day}
 							</Typography>
 							{repeatsByDate.map((date, index) => {
@@ -161,10 +161,16 @@ function RepeatsCalendar() {
 								) {
 									return (
 										<>
-											<Typography key={index} className="hidden md:inline-block md:!text-base">
+											<Typography
+												key={index}
+												className="hidden text-white md:inline-block md:!text-base"
+											>
 												{date.count} {texts.repeats.title}
 											</Typography>
-											<Typography key={index} className="inline-block !text-sm md:hidden">
+											<Typography
+												key={index}
+												className="inline-block !text-sm text-white md:hidden"
+											>
 												{date.count} {texts.repeats.titleMobile}
 											</Typography>
 										</>

@@ -22,9 +22,13 @@ import {
 } from "@clerk/nextjs";
 
 export const Header = () => {
-	const { storeWords, getWords, clearWords } = useWordStore();
+	const { storeWords, getWords, wordsToRepeat, clearWords } = useWordStore();
 	const { user, isSignedIn } = useUser();
 	const userName = user?.firstName;
+
+	const repeatBorderDate = new Date();
+	repeatBorderDate.setDate(repeatBorderDate.getDate() + 1);
+	repeatBorderDate.setHours(2, 0, 0, 0);
 
 	useEffect(() => {
 		if (!storeWords.length && user?.id && isSignedIn) {
@@ -67,9 +71,7 @@ export const Header = () => {
 									<Typography variant="subtitle2" className="hidden md:block">
 										{texts.header.repeats}:
 									</Typography>{" "}
-									<Typography variant="subtitle2">
-										{storeWords.filter((word) => new Date(word.nextRepeatDate) < new Date()).length}
-									</Typography>
+									<Typography variant="subtitle2">{wordsToRepeat.length}</Typography>
 								</Button>
 							</Link>
 							<Link href={`/form`}>
