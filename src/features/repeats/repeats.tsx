@@ -14,11 +14,35 @@ import { patchWord } from "@/services/patchWord";
 import { getWordAfterRepeat } from "@/utils/getWordAfterRepeat";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import { LANGUAGES } from "@/constants/languageData";
+import { Word } from "@/models/Word";
+
+interface RepeatsLanguages {
+	source: string;
+	target: string;
+}
 
 export const Repeats = () => {
 	const { getWord, wordsToRepeat, updateRepeatedWord } = useWordStore();
 	const { showError } = useNotificationStore();
 	const { isSignedIn } = useUser();
+	const [repeatsLanguages, setRepeatsLanguages] = useState<RepeatsLanguages>({
+		source: "ALL",
+		target: "ALL",
+	});
+
+	const filteredWordsToRepeat: Word[] = wordsToRepeat
+		.filter((word) =>
+			repeatsLanguages.source !== "ALL" ? repeatsLanguages.source === word.sourceLanguage : true,
+		)
+		.filter((word) =>
+			repeatsLanguages.target !== "ALL" ? repeatsLanguages.target === word.targetLanguage : true,
+		);
 
 	const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -35,7 +59,7 @@ export const Repeats = () => {
 			const { success, word, error } = await patchWord(updatedWord._id, newWord);
 
 			if (success && word) {
-				updateRepeatedWord(repeatStatus, word);
+				updateRepeatedWord(word);
 			}
 
 			if (error) {
@@ -57,13 +81,13 @@ export const Repeats = () => {
 				handleShowTranslation();
 			}
 			if (event.key === "1" && showTranslation) {
-				handleRepeatWord("BAD", wordsToRepeat[0]._id);
+				handleRepeatWord("BAD", filteredWordsToRepeat[0]._id);
 			}
 			if (event.key === "2" && showTranslation) {
-				handleRepeatWord("MEDIUM", wordsToRepeat[0]._id);
+				handleRepeatWord("MEDIUM", filteredWordsToRepeat[0]._id);
 			}
 			if (event.key === "3" && showTranslation) {
-				handleRepeatWord("GOOD", wordsToRepeat[0]._id);
+				handleRepeatWord("GOOD", filteredWordsToRepeat[0]._id);
 			}
 		};
 
@@ -76,62 +100,110 @@ export const Repeats = () => {
 
 	return (
 		<>
-			{wordsToRepeat.length > 0 ? (
-				<>
-					<Chip className="self-end" label={wordsToRepeat[0].partOfSpeech} color="primary" />
-					<Box>
-						<Typography align="center" variant="h6">
-							{wordsToRepeat[0].sourceWord}
-						</Typography>
-						<Typography align="center" className="text-center" variant="h6">
-							{showTranslation && wordsToRepeat[0].targetWord}
-						</Typography>
-					</Box>
-					<Box className="mb-4 mt-2 flex gap-4">
-						{showTranslation ? (
+			<>
+				{wordsToRepeat.length > 0 ? (
+					<>
+						<FormControl>
+							<FormLabel id="demo-radio-buttons-group-label">Source word language</FormLabel>
+							<RadioGroup
+								defaultValue="ALL"
+								name="radio-buttons-group"
+								onChange={(e) =>
+									setRepeatsLanguages({ ...repeatsLanguages, source: e.target.value })
+								}
+								row
+							>
+								<FormControlLabel value="ALL" control={<Radio />} label="ALL" />
+								{LANGUAGES.map((item) => (
+									<>
+										<FormControlLabel value={item.symbol} control={<Radio />} label={item.symbol} />
+									</>
+								))}
+							</RadioGroup>
+						</FormControl>
+						<FormControl>
+							<FormLabel id="demo-radio-buttons-group-label">Target word language</FormLabel>
+							<RadioGroup
+								defaultValue="ALL"
+								name="radio-buttons-group"
+								onChange={(e) =>
+									setRepeatsLanguages({ ...repeatsLanguages, target: e.target.value })
+								}
+								row
+							>
+								<FormControlLabel value="ALL" control={<Radio />} label="ALL" />
+
+								{LANGUAGES.map((item) => (
+									<>
+										<FormControlLabel value={item.symbol} control={<Radio />} label={item.symbol} />
+									</>
+								))}
+							</RadioGroup>
+						</FormControl>
+						<Typography>{filteredWordsToRepeat.length} words</Typography>
+						{filteredWordsToRepeat.length > 0 && (
 							<>
-								<KeyboardButton
-									text={texts.bad}
-									keyboardKey="1"
-									onClick={() => handleRepeatWord("BAD", wordsToRepeat[0]._id)}
+								<Chip
+									className="self-end"
+									label={filteredWordsToRepeat[0].partOfSpeech}
+									color="primary"
 								/>
-								<KeyboardButton
-									text={texts.medium}
-									keyboardKey="2"
-									onClick={() => handleRepeatWord("MEDIUM", wordsToRepeat[0]._id)}
-								/>
-								<KeyboardButton
-									text={texts.good}
-									keyboardKey="3"
-									onClick={() => handleRepeatWord("GOOD", wordsToRepeat[0]._id)}
-								/>
+								<Box>
+									<Typography align="center" variant="h6">
+										{filteredWordsToRepeat[0].sourceWord}
+									</Typography>
+									<Typography align="center" className="text-center" variant="h6">
+										{showTranslation && filteredWordsToRepeat[0].targetWord}
+									</Typography>
+								</Box>
+								<Box className="mb-4 mt-2 flex gap-4">
+									{showTranslation ? (
+										<>
+											<KeyboardButton
+												text={texts.bad}
+												keyboardKey="1"
+												onClick={() => handleRepeatWord("BAD", filteredWordsToRepeat[0]._id)}
+											/>
+											<KeyboardButton
+												text={texts.medium}
+												keyboardKey="2"
+												onClick={() => handleRepeatWord("MEDIUM", filteredWordsToRepeat[0]._id)}
+											/>
+											<KeyboardButton
+												text={texts.good}
+												keyboardKey="3"
+												onClick={() => handleRepeatWord("GOOD", filteredWordsToRepeat[0]._id)}
+											/>
+										</>
+									) : (
+										<KeyboardButton
+											text={texts.repeats.show}
+											keyboardKey="⏎"
+											onClick={handleShowTranslation}
+										/>
+									)}
+								</Box>
+								<RepeatedWordInfo word={filteredWordsToRepeat[0]} />
+								{showTranslation && (
+									<RepeatedWordAdditionalSettings
+										word={filteredWordsToRepeat[0]}
+										openDrawer={openDrawer}
+										setOpenDrawer={setOpenDrawer}
+									/>
+								)}
+								<Link href="/calendar">RepeatsCalendar</Link>
 							</>
-						) : (
-							<KeyboardButton
-								text={texts.repeats.show}
-								keyboardKey="⏎"
-								onClick={handleShowTranslation}
-							/>
 						)}
-					</Box>
-					<RepeatedWordInfo word={wordsToRepeat[0]} />
-					{showTranslation && (
-						<RepeatedWordAdditionalSettings
-							word={wordsToRepeat[0]}
-							openDrawer={openDrawer}
-							setOpenDrawer={setOpenDrawer}
-						/>
-					)}
-					<Link href="/calendar">RepeatsCalendar</Link>
-				</>
-			) : isSignedIn ? (
-				<>
-					<Typography>{texts.repeats.nothing}</Typography>
-					<Link href="/calendar">RepeatsCalendar</Link>
-				</>
-			) : (
-				<Typography>{texts.auth.signInRepeats}</Typography>
-			)}
+					</>
+				) : isSignedIn ? (
+					<>
+						<Typography>{texts.repeats.nothing}</Typography>
+						<Link href="/calendar">RepeatsCalendar</Link>
+					</>
+				) : (
+					<Typography>{texts.auth.signInRepeats}</Typography>
+				)}
+			</>
 		</>
 	);
 };

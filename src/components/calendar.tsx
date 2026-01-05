@@ -146,8 +146,8 @@ function Calendar() {
 							key={index}
 							className={`h-20 border border-slate-700 p-1 md:p-2 ${
 								day.isInMonth
-									? "bg-[var(--mui-palette-secondary-light)]"
-									: "bg-[var(--mui-palette-secondary-main)]"
+									? "bg-[var(--mui-palette-tertiary-light)]"
+									: "bg-[var(--mui-palette-tertiary-main)]"
 							}`}
 						>
 							<Typography color="primary.light" className="!text-sm">

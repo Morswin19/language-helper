@@ -8,6 +8,7 @@ import * as React from "react";
 import NotificationContainer from "@/components/notificationContainer";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Header } from "@/components/header/header";
+import { Box } from "@mui/material";
 
 const roboto = Roboto({
 	weight: ["300", "400", "500", "700"],
@@ -33,7 +34,7 @@ export default function RootLayout({
 					<AppRouterCacheProvider options={{ key: `css` }}>
 						<ThemeProvider theme={theme}>
 							<Header />
-							{children}
+							<Box>{children}</Box>
 							<NotificationContainer />
 						</ThemeProvider>
 					</AppRouterCacheProvider>

@@ -15,9 +15,9 @@ const theme = extendTheme({
 					contrastText: "#FFFFFF",
 				},
 				secondary: {
-					main: "#A53860",
-					light: "#C16584",
-					dark: "#7A2A48",
+					main: "#00A8CC",
+					light: "#33B9D6",
+					dark: "#007D99",
 					contrastText: "#FFFFFF",
 				},
 				// @ts-expect-error i have not already add tertiary option to types
