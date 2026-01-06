@@ -21,7 +21,9 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { LANGUAGES } from "@/constants/languageData";
 import { Word } from "@/models/Word";
-import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 interface RepeatsLanguages {
