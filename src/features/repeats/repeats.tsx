@@ -21,6 +21,10 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { LANGUAGES } from "@/constants/languageData";
 import { Word } from "@/models/Word";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 interface RepeatsLanguages {
 	source: string;
@@ -102,40 +106,67 @@ export const Repeats = () => {
 		<>
 			{wordsToRepeat.length > 0 ? (
 				<>
-					<FormControl>
-						<FormLabel id="demo-radio-buttons-group-label">Source word language</FormLabel>
-						<RadioGroup
-							defaultValue="ALL"
-							name="radio-buttons-group"
-							onChange={(e) => setRepeatsLanguages({ ...repeatsLanguages, source: e.target.value })}
-							row
+					<Accordion className="mb-4 border-b border-solid border-[--mui-palette-primary-main] !shadow-none">
+						<AccordionSummary
+							expandIcon={<ArrowDownwardIcon />}
+							aria-controls="panel1-content"
+							id="panel1-header"
+							className="!px-0"
 						>
-							<FormControlLabel value="ALL" control={<Radio />} label="ALL" />
-							{LANGUAGES.map((item) => (
-								<>
-									<FormControlLabel value={item.symbol} control={<Radio />} label={item.symbol} />
-								</>
-							))}
-						</RadioGroup>
-					</FormControl>
-					<FormControl>
-						<FormLabel id="demo-radio-buttons-group-label">Target word language</FormLabel>
-						<RadioGroup
-							defaultValue="ALL"
-							name="radio-buttons-group"
-							onChange={(e) => setRepeatsLanguages({ ...repeatsLanguages, target: e.target.value })}
-							row
-						>
-							<FormControlLabel value="ALL" control={<Radio />} label="ALL" />
+							<Typography component="span">Show Language Options</Typography>
+						</AccordionSummary>
+						<AccordionDetails className="flex flex-col gap-4 !px-0">
+							<FormControl>
+								<FormLabel id="demo-radio-buttons-group-label">Source word language</FormLabel>
+								<RadioGroup
+									defaultValue="ALL"
+									name="radio-buttons-group"
+									onChange={(e) =>
+										setRepeatsLanguages({ ...repeatsLanguages, source: e.target.value })
+									}
+									row
+								>
+									<FormControlLabel value="ALL" control={<Radio />} label="ALL" />
+									{LANGUAGES.map((item) => (
+										<>
+											<FormControlLabel
+												value={item.symbol}
+												control={<Radio />}
+												label={item.symbol}
+											/>
+										</>
+									))}
+								</RadioGroup>
+							</FormControl>
+							<FormControl>
+								<FormLabel id="demo-radio-buttons-group-label">Target word language</FormLabel>
+								<RadioGroup
+									defaultValue="ALL"
+									name="radio-buttons-group"
+									onChange={(e) =>
+										setRepeatsLanguages({ ...repeatsLanguages, target: e.target.value })
+									}
+									row
+								>
+									<FormControlLabel value="ALL" control={<Radio />} label="ALL" />
 
-							{LANGUAGES.map((item) => (
-								<>
-									<FormControlLabel value={item.symbol} control={<Radio />} label={item.symbol} />
-								</>
-							))}
-						</RadioGroup>
-					</FormControl>
-					<Typography>{filteredWordsToRepeat.length} words</Typography>
+									{LANGUAGES.map((item) => (
+										<>
+											<FormControlLabel
+												value={item.symbol}
+												control={<Radio />}
+												label={item.symbol}
+											/>
+										</>
+									))}
+								</RadioGroup>
+							</FormControl>
+						</AccordionDetails>
+					</Accordion>
+
+					<Typography className="!mb-2">
+						{texts.header.repeats}: {filteredWordsToRepeat.length} words
+					</Typography>
 					{filteredWordsToRepeat.length > 0 && (
 						<>
 							<Chip
