@@ -24,7 +24,7 @@ export const useWordStore = create<WordStore>((set, get) => ({
 		const response = await getUserWords(userId);
 		const repeatBorderDate = new Date();
 		repeatBorderDate.setDate(repeatBorderDate.getDate() + 1);
-		repeatBorderDate.setHours(2, 0, 0, 0);
+		repeatBorderDate.setHours(0, 0, 0, 0);
 		set({ storeWords: response });
 		const state = get();
 		if (!state.wordsToRepeat.length) {
