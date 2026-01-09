@@ -7,7 +7,7 @@ export const texts = {
 	medium: "medium",
 	streak: "streak",
 	last: "last repeat",
-	percent: "percent of good repeats",
+	percent: "good repeats",
 	source: "source word",
 	target: "translation",
 	part: "part of speech",
