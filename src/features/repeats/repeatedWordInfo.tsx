@@ -59,7 +59,7 @@ export const RepeatedWordInfo = ({ word }: { word: Word }) => {
 								(word.numberOfGoodRepeats * 100) /
 									(word.numberOfBadRepeats + word.numberOfGoodRepeats),
 							) + "%"
-						: 0}
+						: 0 + "%"}
 				</Typography>
 			</Box>
 			<Typography align="center" className="w-1/2">
