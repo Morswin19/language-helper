@@ -81,7 +81,7 @@ export const Repeats = () => {
 	useEffect(() => {
 		if (openDrawer) return;
 		const handleKeyPress = (event: KeyboardEvent) => {
-			if (event.key === "Enter" && !showTranslation && wordsToRepeat.length > 0) {
+			if (event.code === "Space" && !showTranslation && wordsToRepeat.length > 0) {
 				handleShowTranslation();
 			}
 			if (event.key === "1" && showTranslation) {
