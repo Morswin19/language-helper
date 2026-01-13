@@ -106,16 +106,16 @@ export const Repeats = () => {
 		<>
 			{wordsToRepeat.length > 0 ? (
 				<>
-					<Accordion className="mb-4 border-b border-solid border-[--mui-palette-primary-main] !shadow-none">
+					<Accordion className="mb-4 border-b border-solid border-[--mui-palette-primary-main] !shadow-none focus-within:bg-[--mui-palette-primary-lighter]">
 						<AccordionSummary
 							expandIcon={<ArrowDownwardIcon />}
 							aria-controls="panel1-content"
 							id="panel1-header"
-							className="!px-0"
+							className="!px-4"
 						>
 							<Typography component="span">Show Language Options</Typography>
 						</AccordionSummary>
-						<AccordionDetails className="flex flex-col gap-4 !px-0">
+						<AccordionDetails className="flex flex-col gap-4 !px-4">
 							<FormControl>
 								<FormLabel id="demo-radio-buttons-group-label">Source word language</FormLabel>
 								<RadioGroup
