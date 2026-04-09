@@ -12,6 +12,8 @@ const theme = extendTheme({
 					main: "#273469",
 					light: "#5c6fa0",
 					dark: "#1a2447",
+					// @ts-expect-error i have not already add lighter option to types
+					lighter: "#f0f1f5",
 					contrastText: "#FFFFFF",
 				},
 				secondary: {
@@ -20,7 +22,6 @@ const theme = extendTheme({
 					dark: "#007D99",
 					contrastText: "#FFFFFF",
 				},
-				// @ts-expect-error i have not already add tertiary option to types
 				tertiary: {
 					main: "#C3D350",
 					light: "#D4E074",
